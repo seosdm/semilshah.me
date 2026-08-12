@@ -41,21 +41,6 @@
       "priority": "0.9",
       "changefreq": "monthly"
     },
-    "seo-coaching.html": {
-      "nav": "seo-coaching",
-      "priority": "0.9",
-      "changefreq": "monthly"
-    },
-    "clickup-consultant.html": {
-      "nav": "clickup-consultant",
-      "priority": "0.9",
-      "changefreq": "monthly"
-    },
-    "semrush-ahrefs-coaching.html": {
-      "nav": "semrush-ahrefs-coaching",
-      "priority": "0.9",
-      "changefreq": "monthly"
-    },
     "seo-consultant-canada.html": {
       "nav": "seo-consultant-canada",
       "priority": "0.9",
@@ -94,6 +79,36 @@
     "blog-post.html": {
       "nav": "insights",
       "skipSitemap": true
+    },
+    "coaching.html": {
+      "nav": "coaching",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "coaching/seo.html": {
+      "nav": "coaching-seo",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "coaching/geo.html": {
+      "nav": "coaching-geo",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "coaching/profound.html": {
+      "nav": "coaching-profound",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    "coaching/airops.html": {
+      "nav": "coaching-airops",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    "coaching/clickup.html": {
+      "nav": "coaching-clickup",
+      "priority": "0.8",
+      "changefreq": "monthly"
     }
   },
   "skillDir": "build"
