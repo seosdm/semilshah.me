@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Build | Open-Source SEO Systems — Semil Shah</title>
+<meta name="description" content="Open-source SEO and growth systems by Semil Shah — technical crawl analysis, GSC opportunity mining, AI visibility audits, and agency operating cadences. Free to fork on GitHub." />
+<link rel="canonical" href="https://semilshah.me/build.html"/>
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Build | Open-Source SEO Systems — Semil Shah" />
+<meta property="og:description" content="The audits, briefs, and reports I run for clients — packaged as open, forkable systems. Free on GitHub." />
+<meta property="og:url" content="https://semilshah.me/build.html" />
+<meta property="og:image" content="https://semilshah.me/og-image.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@semshah143" />
+
+<!-- Same font + Tailwind setup as the rest of semilshah.me, so this page is pixel-consistent -->
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#9e3c00',
+          'primary-container': '#ff7936',
+          'on-primary': '#fff0ea',
+          surface: '#f6f6f6',
+          'surface-container-low': '#f1f1f1',
+          'surface-container': '#e8e8e8',
+          'surface-container-lowest': '#ffffff',
+          'surface-container-high': '#e2e2e2',
+          'surface-container-highest': '#dddddd',
+          'on-surface': '#2f2f2f',
+          'on-surface-variant': '#5b5b5b',
+          outline: '#777777',
+          'outline-variant': '#adadad',
+          'inverse-surface': '#0e0e0e',
+          'primary-dim': '#8b3400',
+          'primary-fixed': '#ff7936',
+          'primary-fixed-dim': '#f96400',
+        },
+        borderRadius: { DEFAULT: '0px', lg: '0px', xl: '0px', full: '9999px' },
+        fontFamily: { headline: ['Epilogue'], body: ['Inter'], label: ['Inter'] },
+      }
+    }
+  }
+</script>
+<style>
+  body{ -webkit-font-smoothing:antialiased; }
+  .material-symbols-outlined{ font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+
+<body class="bg-surface text-on-surface font-body">
+
+<!-- PARTIAL:NAV -->
+<!-- Nav -->
+<nav class="fixed top-0 w-full z-50 bg-[#f6f6f6]">
+  <div class="flex justify-between items-center w-full px-8 py-6 max-w-none">
+    <a href="index.html" class="text-2xl font-black tracking-tighter text-black font-headline uppercase">SEMIL SHAH</a>
+    <div class="hidden md:flex gap-10 items-center">
+      <a href="about.html" data-nav="about" class="font-headline font-black uppercase tracking-tighter text-sm text-black opacity-70 hover:text-[#9e3c00] transition-colors duration-150">About</a>
+      <div class="relative group">
+        <a href="services.html" data-nav="services" class="font-headline font-black uppercase tracking-tighter text-sm text-black opacity-70 hover:text-[#9e3c00] transition-colors flex items-center gap-1">Services <span class="material-symbols-outlined" style="font-size:14px;line-height:1;vertical-align:middle;">expand_more</span></a>
+        <div class="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 bg-white shadow-xl border border-[#e8e8e8] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+          <a href="fractional-seo-manager.html" data-nav="fractional-seo-manager" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">Fractional SEO Manager</a>
+          <a href="growth-manager.html" data-nav="growth-manager" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">Growth Manager</a>
+          <a href="seo-coaching.html" data-nav="seo-coaching" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">SEO Coaching</a>
+          <a href="clickup-consultant.html" data-nav="clickup-consultant" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">ClickUp Consultant</a>
+          <a href="semrush-ahrefs-coaching.html" data-nav="semrush-ahrefs-coaching" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">SEMrush &amp; Ahrefs Coaching</a>
+          <a href="seo-consultant-canada.html" data-nav="seo-consultant-canada" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">SEO Consultant Canada</a>
+          <a href="brand-visibility.html" data-nav="brand-visibility" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors">Brand Visibility Expert</a>
+        </div>
+      </div>
+      <a href="work.html" data-nav="work" class="font-headline font-black uppercase tracking-tighter text-sm text-black opacity-70 hover:text-[#9e3c00] transition-colors duration-150">Work</a>
+      <a href="build.html" data-nav="build" aria-current="page" class="is-active font-headline font-black uppercase tracking-tighter text-sm text-black opacity-100 hover:text-[#9e3c00] transition-colors duration-150">Build</a>
+      <a href="insights.html" data-nav="insights" class="font-headline font-black uppercase tracking-tighter text-sm text-black opacity-70 hover:text-[#9e3c00] transition-colors duration-150">Insights</a>
+    </div>
+    <a href="contact.html" data-nav="contact" class="font-headline font-black uppercase tracking-tighter text-sm text-[#9e3c00] hover:opacity-80 transition-opacity">Contact</a>
+  </div>
+  <div class="bg-[#f1f1f1] h-[1px] w-full"></div>
+</nav>
+<!-- /PARTIAL:NAV -->
+
+<main class="pt-32">
+
+  <!-- HERO -->
+  <section class="px-8 pb-20 border-b border-outline-variant/20">
+    <div class="max-w-none">
+      <div class="flex items-center gap-2 mb-8">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline">Open Source · SEO &amp; Growth Systems</span>
+      </div>
+      <h1 class="font-headline text-[clamp(3.5rem,7vw,6rem)] leading-[0.88] font-black tracking-tighter text-on-surface uppercase mb-10">
+        Systems, <span class="text-primary">Not</span> Opinions
+      </h1>
+      <p class="text-xl leading-relaxed text-on-surface-variant mb-10 font-body max-w-2xl">
+        Fifteen years of SEO is mostly the same work, repeated: the same audits, the same briefs, the same reports. So I turned mine into open, forkable systems. Every audit I run for a client starts from code that's public — read exactly how I think before we ever talk.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="https://github.com/seosdm" class="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 font-label text-xs uppercase tracking-widest hover:bg-primary-dim transition-colors">
+          Browse the repos <span class="material-symbols-outlined text-base">north_east</span>
+        </a>
+        <a href="seo-coaching.html" class="inline-flex items-center gap-2 border border-on-surface px-8 py-4 font-label text-xs uppercase tracking-widest hover:bg-white hover:text-primary hover:border-primary transition-colors">
+          Learn to run them
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT STRIP -->
+  <section class="px-8 py-16 border-b border-outline-variant/20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div>
+        <span class="text-7xl font-black font-headline tracking-tighter text-primary block leading-none">08</span>
+        <span class="font-label text-[10px] tracking-widest uppercase text-outline mt-2 block">Skills In The Stack</span>
+      </div>
+      <div>
+        <span class="text-7xl font-black font-headline tracking-tighter text-primary block leading-none">04</span>
+        <span class="font-label text-[10px] tracking-widest uppercase text-outline mt-2 block">Stages · Find Ship Links Track</span>
+      </div>
+      <div>
+        <span class="text-7xl font-black font-headline tracking-tighter text-primary block leading-none">MIT</span>
+        <span class="font-label text-[10px] tracking-widest uppercase text-outline mt-2 block">Free To Fork · No Strings</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- THESIS -->
+  <section class="px-8 py-16 border-b border-outline-variant/20">
+    <p class="font-headline text-3xl md:text-4xl font-bold uppercase tracking-tight leading-tight max-w-4xl">
+      A case-study PDF is a claim. A repo you can fork, break, and run on your own site is <span class="text-primary">evidence</span>. This is the evidence.
+    </p>
+  </section>
+
+  <!-- THE STACK -->
+  <section class="px-8 py-20 border-b border-outline-variant/20">
+    <div class="flex items-start gap-2 mb-4">
+      <div class="w-1 h-12 bg-primary"></div>
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline block">The Stack</span>
+        <h2 class="text-4xl font-headline font-black uppercase tracking-tighter text-on-surface mt-1">The Operating System</h2>
+      </div>
+    </div>
+    <p class="text-on-surface-variant font-body max-w-xl mb-4">Eight skills across four stages of an SEO cadence — plus the orchestration layer that runs them on schedule.</p>
+
+    <div class="mt-8">
+      <!-- PARTIAL:STACK -->
+      <a href="build/ai-visibility-audit.html" class="group border-t border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">01</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">AI Visibility Audit</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">How a brand shows up in ChatGPT, Claude, Perplexity, and AI Overviews — and which sources those answers cite instead of you. Outputs a prioritized GEO/AEO fix list.</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <a href="build/screaming-frog-crawl-analysis.html" class="group border-t border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">02</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">Screaming Frog Crawl Analysis</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">Turns a 50,000-row crawl export into a causal technical diagnosis — indexability as a logic tree, true orphans, redirect chains, and internal link equity.</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <a href="build/gsc-opportunity-mining.html" class="group border-t border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">03</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">GSC Opportunity Mining</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">Striking-distance keywords, CTR underperformance, cannibalization, and page decay — mined from the only dataset that tells you what Google already thinks you're relevant for.</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <a href="build/backlink-keyword-gap.html" class="group border-t border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">04</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">Backlink & Keyword Gap</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">Link velocity, anchor risk, reclamation, and the referring-domain gap — turned into a sequenced roadmap instead of "build more links".</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <a href="build/seo-content-brief.html" class="group border-t border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">05</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">SEO Content Brief</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">A brief is a contract with the writer. Intent read from the actual SERP, must-cover entities, real internal links, and word counts derived from what ranks.</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <a href="build/local-seo-gbp-audit.html" class="group border-t border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">06</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">Local SEO & GBP Audit</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">Category strategy, NAP consistency, review velocity and sentiment, grid-aware pack visibility, and the specific prominence gap to the profile beating you.</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <a href="build/cro-page-teardown.html" class="group border-t border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">07</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">CRO Page Teardown</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">Friction mapped to funnel stage, hypotheses with stated mechanisms, and a queue split into just-do-it, test-it, and research-it.</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <a href="build/agency-ops-clickup.html" class="group border-t border-b border-outline-variant/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white transition-all duration-300 px-6 -mx-6">
+        <div class="flex items-start gap-8">
+          <span class="text-primary font-headline font-black text-xl">08</span>
+          <div>
+            <h3 class="text-4xl font-headline font-bold uppercase group-hover:text-primary transition-colors">Agency Ops · ClickUp</h3>
+            <p class="text-on-surface-variant font-body max-w-md mt-4">Turns a ClickUp workspace into a weekly delivery report — account health, capacity bottlenecks, stalled work grouped by cause, and seven ranked actions.</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-4xl mt-6 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">north_east</span>
+      </a>
+      <!-- /PARTIAL:STACK -->
+    </div>
+  </section>
+
+  <!-- ORCHESTRATION -->
+  <section class="px-8 py-20 border-b border-outline-variant/20">
+    <div class="flex items-start gap-2 mb-6">
+      <div class="w-1 h-12 bg-primary"></div>
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline block">The Orchestration Layer</span>
+        <h2 class="text-4xl font-headline font-black uppercase tracking-tighter text-on-surface mt-1">It Runs On A Schedule</h2>
+      </div>
+    </div>
+    <p class="text-on-surface-variant font-body max-w-2xl mb-8 leading-relaxed">
+      The skills are the instruments. <span class="text-on-surface font-semibold">seo-operating-cadence</span> is the conductor — it decides which runs weekly, monthly, or quarterly, keeps every scheduled run read-only until a human promotes it, and rolls it all into one Monday narrative built on judgment, not a dashboard.
+    </p>
+    <a href="https://github.com/seosdm/seo-skills" class="inline-flex items-center gap-2 border border-on-surface px-8 py-4 font-label text-xs uppercase tracking-widest hover:bg-white hover:text-primary hover:border-primary transition-colors">
+      See the cadence <span class="material-symbols-outlined text-base">north_east</span>
+    </a>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-8 py-24 text-center">
+    <span class="font-label text-[10px] uppercase tracking-widest text-primary mb-6 block">If The Tool Gets You 60% There</span>
+    <h2 class="font-headline text-[clamp(2.5rem,5vw,4.5rem)] font-black uppercase tracking-tighter text-on-surface mb-6">I'll Teach You The Rest</h2>
+    <p class="text-on-surface-variant font-body max-w-xl mx-auto mb-10 leading-relaxed">
+      The skills are free. If your team wants to run them like I do — the judgment calls the code can't encode — that's what coaching is for.
+    </p>
+    <a href="seo-coaching.html" class="inline-flex items-center gap-2 bg-primary text-on-primary px-10 py-4 font-label text-xs uppercase tracking-widest hover:bg-primary-dim transition-colors">
+      Book A Coaching Session <span class="material-symbols-outlined text-base">north_east</span>
+    </a>
+  </section>
+</main>
+
+<!-- PARTIAL:FOOTER -->
+<!-- Footer -->
+<footer class="bg-[#dddddd] w-full px-8 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+  <div class="flex flex-col gap-2">
+    <a href="index.html" class="text-lg font-bold text-black uppercase font-headline">SEMIL SHAH</a>
+    <p class="font-body text-sm text-black/60 max-w-xs leading-relaxed">SEO Consultant &amp; Growth Strategist. Toronto, Canada.</p>
+  </div>
+  <div class="flex flex-wrap gap-8 items-center">
+    <div class="flex flex-wrap gap-6">
+      <a href="services.html" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">Services</a>
+      <a href="about.html" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">About</a>
+      <a href="work.html" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">Work</a>
+      <a href="build.html" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">Build</a>
+      <a href="insights.html" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">Insights</a>
+      <a href="contact.html" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">Contact</a>
+    </div>
+    <div class="h-8 w-[1px] bg-black/10 hidden md:block"></div>
+    <div class="flex gap-5 items-center">
+      <a href="https://linkedin.com/in/semshah143" target="_blank" rel="noopener" aria-label="Semil Shah on LinkedIn" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">LinkedIn</a>
+      <a href="https://x.com/semshah143" target="_blank" rel="noopener" aria-label="Semil Shah on X" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">X</a>
+      <a href="https://github.com/seosdm" target="_blank" rel="noopener" aria-label="Semil Shah on GitHub" class="font-body text-sm tracking-widest uppercase text-black/60 hover:text-[#9e3c00] underline-offset-4 hover:underline">GitHub</a>
+    </div>
+    <div class="h-8 w-[1px] bg-black/10 hidden md:block"></div>
+    <span class="font-body text-[10px] tracking-widest uppercase text-black/40">© 2026 SEMIL SHAH. ALL RIGHTS RESERVED.</span>
+  </div>
+  <div class="flex items-center gap-4">
+    <div class="w-2 h-2 rounded-full bg-[#9e3c00] animate-pulse"></div>
+    <span class="font-body text-[10px] font-bold uppercase tracking-widest text-black/60">Available for New Projects</span>
+  </div>
+</footer>
+<!-- /PARTIAL:FOOTER -->
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":"Open-Source SEO Systems",
+  "url":"https://semilshah.me/build.html",
+  "description":"Open-source SEO and growth systems by Semil Shah — technical crawl analysis, GSC opportunity mining, AI visibility audits, backlink and keyword gap analysis, and agency operating cadences.",
+  "author":{
+    "@type":"Person",
+    "name":"Semil Shah",
+    "url":"https://semilshah.me",
+    "jobTitle":"SEO Consultant & Growth Strategist",
+    "sameAs":["https://github.com/seosdm","https://linkedin.com/in/semshah143","https://x.com/semshah143","https://instagram.com/semilforgrowth"]
+  },
+  "hasPart":[
+    {"@type":"SoftwareSourceCode","name":"ai-visibility-audit","codeRepository":"https://github.com/seosdm/ai-visibility-audit","description":"Audit how a brand appears in AI-generated answers and produce a prioritized GEO/AEO fix list.","programmingLanguage":"Markdown","author":{"@type":"Person","name":"Semil Shah"}},
+    {"@type":"SoftwareSourceCode","name":"screaming-frog-crawl-analysis","codeRepository":"https://github.com/seosdm/seo-skills","description":"Analyze a Screaming Frog crawl export for indexability, crawl depth, orphans, redirect chains, and internal link equity.","programmingLanguage":"Python","author":{"@type":"Person","name":"Semil Shah"}},
+    {"@type":"SoftwareSourceCode","name":"gsc-opportunity-mining","codeRepository":"https://github.com/seosdm/seo-skills","description":"Mine Google Search Console for striking-distance keywords, CTR gaps, cannibalization, and page decay.","programmingLanguage":"Markdown","author":{"@type":"Person","name":"Semil Shah"}},
+    {"@type":"SoftwareSourceCode","name":"backlink-keyword-gap","codeRepository":"https://github.com/seosdm/seo-skills","description":"Backlink profile audit and competitor keyword-gap analysis using Ahrefs.","programmingLanguage":"Markdown","author":{"@type":"Person","name":"Semil Shah"}},
+    {"@type":"SoftwareSourceCode","name":"local-seo-gbp-audit","codeRepository":"https://github.com/seosdm/seo-skills","description":"Google Business Profile and local search audit with category-first prioritization.","programmingLanguage":"Markdown","author":{"@type":"Person","name":"Semil Shah"}},
+    {"@type":"SoftwareSourceCode","name":"cro-page-teardown","codeRepository":"https://github.com/seosdm/cro-page-teardown","description":"Structured conversion teardown with funnel-stage friction mapping and a prioritized test queue.","programmingLanguage":"Markdown","author":{"@type":"Person","name":"Semil Shah"}},
+    {"@type":"SoftwareSourceCode","name":"agency-ops-clickup","codeRepository":"https://github.com/seosdm/agency-ops-clickup","description":"Weekly agency delivery and pipeline-health reporting from a ClickUp workspace.","programmingLanguage":"Markdown","author":{"@type":"Person","name":"Semil Shah"}}
+  ]
+}
+</script>
+</body>
+</html>

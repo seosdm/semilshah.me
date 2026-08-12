@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{NAME}} | Open-Source SEO Systems — Semil Shah</title>
+  <meta name="description" content="{{DESCRIPTION}}"/>
+  <link rel="canonical" href="{{CANONICAL}}"/>
+  <meta property="og:title" content="{{NAME}} | Semil Shah"/>
+  <meta property="og:description" content="{{DESCRIPTION}}"/>
+  <meta property="og:url" content="{{CANONICAL}}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="https://semilshah.me/og-image.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@semshah143"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          primary: '#9e3c00', 'primary-container': '#ff7936', 'on-primary': '#fff0ea',
+          'primary-fixed': '#ff9d6b', 'primary-dim': '#8b3400',
+          surface: '#f6f6f6', 'surface-container-low': '#f1f1f1', 'surface-container': '#e8e8e8',
+          'surface-container-lowest': '#ffffff', 'surface-container-high': '#e2e2e2',
+          'surface-container-highest': '#dddddd', 'on-surface': '#2f2f2f',
+          'on-surface-variant': '#5b5b5b', outline: '#777777', 'outline-variant': '#adadad',
+          'inverse-surface': '#0e0e0e',
+        },
+        borderRadius: { DEFAULT: '0px', lg: '0px', xl: '0px', full: '9999px' },
+        fontFamily: { headline: ['Epilogue', 'sans-serif'], body: ['Inter', 'sans-serif'], label: ['Inter', 'sans-serif'] },
+      }}
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #f6f6f6; color: #2f2f2f; -webkit-font-smoothing: antialiased; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  </style>
+  <script type="application/ld+json">{{SCHEMA}}</script>
+</head>
+<body class="font-body">
+
+{{NAV}}
+
+<main class="pt-40">
+
+  <!-- BREADCRUMB -->
+  <div class="px-8 mb-8">
+    <div class="flex items-center gap-2 font-label text-[10px] uppercase tracking-widest text-outline">
+      <a href="../index.html" class="hover:text-primary transition-colors">Home</a>
+      <span class="material-symbols-outlined text-sm">chevron_right</span>
+      <a href="../build.html" class="hover:text-primary transition-colors">Build</a>
+      <span class="material-symbols-outlined text-sm">chevron_right</span>
+      <span class="text-on-surface">{{SLUG}}</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="px-8 pb-16 border-b border-outline-variant/20">
+    <div class="max-w-4xl">
+      <div class="flex items-center gap-2 mb-6">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline">Claude Skill · {{STAGE}}</span>
+      </div>
+      <h1 class="font-headline text-[clamp(2.75rem,6vw,5rem)] leading-[0.9] font-black tracking-tighter text-on-surface uppercase mb-6">
+        {{NAME_HTML}}
+      </h1>
+      <p class="text-xl leading-relaxed text-on-surface-variant font-body max-w-2xl mb-8">
+        {{TAGLINE}}
+      </p>
+
+      <div class="flex flex-wrap gap-x-8 gap-y-2 mb-10 font-label text-[10px] uppercase tracking-widest text-outline">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-primary"></span> Language · Markdown</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-on-surface"></span> License · MIT</span>
+        <span class="flex items-center gap-2"><span class="w-2 h-2 bg-outline-variant"></span> Type · Claude Skill</span>
+      </div>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="{{REPO}}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 font-label text-xs uppercase tracking-widest hover:bg-primary-dim transition-colors">
+          View on GitHub <span class="material-symbols-outlined text-base">north_east</span>
+        </a>
+        <a href="{{REPO}}/fork" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-on-surface px-8 py-4 font-label text-xs uppercase tracking-widest hover:bg-white hover:text-primary hover:border-primary transition-colors">
+          Fork it <span class="material-symbols-outlined text-base">fork_right</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="px-8 py-16 border-b border-outline-variant/20">
+    <div class="flex items-start gap-2 mb-8">
+      <div class="w-1 h-12 bg-primary"></div>
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline block">01 · The Problem</span>
+        <h2 class="text-3xl font-headline font-black uppercase tracking-tighter text-on-surface mt-1">Why This Exists</h2>
+      </div>
+    </div>
+    <div class="max-w-2xl space-y-6 text-on-surface-variant font-body leading-relaxed">
+{{PROBLEM}}
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="px-8 py-16 border-b border-outline-variant/20">
+    <div class="flex items-start gap-2 mb-8">
+      <div class="w-1 h-12 bg-primary"></div>
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline block">02 · Method</span>
+        <h2 class="text-3xl font-headline font-black uppercase tracking-tighter text-on-surface mt-1">How It Works</h2>
+      </div>
+    </div>
+    <div class="max-w-4xl">
+{{STEPS}}
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section class="px-8 py-16 border-b border-outline-variant/20">
+    <div class="flex items-start gap-2 mb-8">
+      <div class="w-1 h-12 bg-primary"></div>
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline block">03 · Run It</span>
+        <h2 class="text-3xl font-headline font-black uppercase tracking-tighter text-on-surface mt-1">Two Minutes To First Output</h2>
+      </div>
+    </div>
+    <div class="max-w-4xl bg-inverse-surface text-on-primary p-8 overflow-x-auto">
+      <pre class="mono text-sm leading-relaxed text-[#e8e8e8]">{{INSTALL}}</pre>
+    </div>
+    <p class="text-on-surface-variant font-body mt-4 text-sm max-w-2xl">No API keys, no setup. The skill is a <span class="mono text-on-surface">SKILL.md</span> file plus a worked example — it runs anywhere Claude does.</p>
+  </section>
+
+  <!-- SAMPLE OUTPUT -->
+  <section class="px-8 py-16 border-b border-outline-variant/20">
+    <div class="flex items-start gap-2 mb-8">
+      <div class="w-1 h-12 bg-primary"></div>
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline block">04 · Proof</span>
+        <h2 class="text-3xl font-headline font-black uppercase tracking-tighter text-on-surface mt-1">Sample Output</h2>
+      </div>
+    </div>
+    <div class="max-w-4xl border border-outline-variant/40 bg-white">
+      <div class="border-b border-outline-variant/40 px-6 py-4 flex items-center justify-between">
+        <span class="font-headline font-bold uppercase tracking-tight text-sm">{{SAMPLE_TITLE}}</span>
+        <span class="font-label text-[10px] uppercase tracking-widest text-outline">Example · anonymized</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-outline-variant/30">
+{{SAMPLE_STATS}}
+      </div>
+      <div class="border-t border-outline-variant/40 px-6 py-5">
+        <p class="text-on-surface-variant font-body text-sm leading-relaxed"><span class="text-on-surface font-semibold">Verdict:</span> {{SAMPLE_VERDICT}}</p>
+      </div>
+    </div>
+    <p class="text-on-surface-variant font-body mt-4 text-sm">See the full worked example in <a href="{{REPO}}/tree/main/examples" target="_blank" rel="noopener" class="text-primary hover:underline underline-offset-4">/examples</a>.</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="px-8 py-20 text-center border-b border-outline-variant/20">
+    <span class="font-label text-[10px] uppercase tracking-widest text-primary mb-6 block">If The Tool Gets You 60% There</span>
+    <h2 class="font-headline text-[clamp(2rem,4vw,3.5rem)] font-black uppercase tracking-tighter text-on-surface mb-6">I'll Teach You The Rest</h2>
+    <p class="text-on-surface-variant font-body max-w-xl mx-auto mb-8 leading-relaxed">Free skill, real judgment behind it. Want it run on your business, or your team taught to run it themselves?</p>
+    <a href="{{CTA_HREF}}" class="inline-flex items-center gap-2 bg-primary text-on-primary px-10 py-4 font-label text-xs uppercase tracking-widest hover:bg-primary-dim transition-colors">
+      {{CTA_LABEL}} <span class="material-symbols-outlined text-base">north_east</span>
+    </a>
+  </section>
+
+  <!-- RELATED -->
+  <section class="px-8 py-16">
+    <span class="font-label text-[10px] uppercase tracking-widest text-outline block mb-8">More In The Stack</span>
+    <div class="max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/20">
+{{RELATED}}
+    </div>
+    <a href="../build.html" class="inline-flex items-center gap-2 mt-10 font-label text-[10px] uppercase tracking-widest text-primary hover:gap-4 transition-all">
+      <span class="material-symbols-outlined text-base">west</span> All eight skills
+    </a>
+  </section>
+</main>
+
+{{FOOTER}}
+
+</body>
+</html>

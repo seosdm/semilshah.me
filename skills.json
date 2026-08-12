@@ -1,0 +1,530 @@
+[
+  {
+    "slug": "ai-visibility-audit",
+    "name": "AI Visibility Audit",
+    "nameHtml": "AI Visibility <span class=\"text-primary\">Audit</span>",
+    "stage": "Visibility & GEO",
+    "repo": "https://github.com/seosdm/ai-visibility-audit",
+    "cardBlurb": "How a brand shows up in ChatGPT, Claude, Perplexity, and AI Overviews — and which sources those answers cite instead of you. Outputs a prioritized GEO/AEO fix list.",
+    "tagline": "Traditional SEO asks <em>do we rank</em>. This asks <em>are we cited, and are we described correctly</em> — across ChatGPT, Claude, Perplexity, Gemini, and Google AI Overviews. Different mechanics, different fixes.",
+    "description": "A Claude skill that audits how a brand appears in ChatGPT, Claude, Perplexity, and AI Overviews, then produces a prioritized GEO/AEO fix list. Free to fork.",
+    "problem": [
+      "Rank tracking cannot see the surface that is eating your clicks. A brand can hold position three for its head term and still be absent from every AI answer that term now triggers.",
+      "The failure is almost never <span class=\"text-on-surface font-semibold\">content volume</span>. It is that the sources those answers cite do not mention you — so publishing more owned content moves nothing.",
+      "This skill measures presence, diagnoses which of five root causes is responsible, and returns a ranked fix list you can hand to someone on Monday."
+    ],
+    "steps": [
+      {
+        "title": "Build the prompt set",
+        "body": "20–30 prompts across five intent tiers — discovery, comparison, problem-first, branded, and buying-criteria — weighted toward the unbranded questions where visibility is actually won."
+      },
+      {
+        "title": "Run &amp; record",
+        "body": "For each prompt: is the brand mentioned, where, described how — and crucially, <span class=\"text-on-surface font-semibold\">which sources the answer cites</span>. That citation column is where the fix lives."
+      },
+      {
+        "title": "Diagnose the root cause",
+        "body": "Every gap maps to one of five causes: citation absence, entity ambiguity, extractability, comparative absence, or factual drift. Naming the cause is what makes the fix specific."
+      },
+      {
+        "title": "Ship a ranked fix list",
+        "body": "Prioritized by (impact × confidence) ÷ effort, each item states what to do, why it moves AI visibility, who owns it, and how you'll know it worked. Re-measure in 60 days."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the repo</span>\ngit clone https://github.com/seosdm/ai-visibility-audit.git\n\n<span class=\"text-outline\"># 2. Copy SKILL.md into a Claude Project, then prompt:</span>\n<span class=\"text-primary-fixed\">Run the ai-visibility-audit skill for [brand].</span>\n<span class=\"text-primary-fixed\">Category: [what they sell]. Competitors: [3–5].</span>\n\n<span class=\"text-outline\"># 3. Re-run the same prompt set every 60 days to measure movement.</span>",
+    "sampleTitle": "Presence Rate by Intent Tier",
+    "sampleStats": [
+      {
+        "value": "78%",
+        "label": "Branded",
+        "accent": true
+      },
+      {
+        "value": "31%",
+        "label": "Comparison",
+        "accent": true
+      },
+      {
+        "value": "12%",
+        "label": "Problem-first",
+        "accent": false
+      },
+      {
+        "value": "6%",
+        "label": "Discovery",
+        "accent": false
+      }
+    ],
+    "sampleVerdict": "strong when named, near-invisible in discovery. Root cause — the three listicles cited across discovery prompts don't mention the brand. Highest-leverage move is earning placement in those sources, not publishing more owned content.",
+    "ctaHref": "../brand-visibility.html",
+    "ctaLabel": "Work With Me On Visibility",
+    "related": [
+      "backlink-keyword-gap",
+      "gsc-opportunity-mining",
+      "seo-content-brief"
+    ],
+    "relatedBlurb": "Where you're cited, and where you're not."
+  },
+  {
+    "slug": "screaming-frog-crawl-analysis",
+    "name": "Screaming Frog Crawl Analysis",
+    "nameHtml": "Screaming Frog <span class=\"text-primary\">Crawl Analysis</span>",
+    "stage": "Technical Foundation",
+    "repo": "https://github.com/seosdm/seo-skills",
+    "cardBlurb": "Turns a 50,000-row crawl export into a causal technical diagnosis — indexability as a logic tree, true orphans, redirect chains, and internal link equity.",
+    "tagline": "Screaming Frog gives you 40 columns and 50,000 rows. The skill is knowing which six columns answer which question — and how to cross-reference exports so the findings are <em>causal</em>, not just descriptive.",
+    "description": "A Claude skill that turns a Screaming Frog export into a causal technical diagnosis — indexability, crawl depth, orphans and link equity. Free to fork.",
+    "problem": [
+      "A list of \"pages with missing titles\" is a filter, not an audit. Anyone can sort a column. The value is in knowing which finding causes the others.",
+      "A noindexed page with a missing title tag does not have a title-tag problem. Resolve indexability as a <span class=\"text-on-surface font-semibold\">logic tree</span> and report the first failing gate — everything downstream is noise.",
+      "And prioritization is only credible when findings are weighted by traffic and links. A broken canonical on a zero-traffic page is not a priority, and saying so out loud is what builds trust with a client."
+    ],
+    "steps": [
+      {
+        "title": "Parse, don't eyeball",
+        "body": "<span class=\"mono text-on-surface\">analyze_crawl.py</span> handles the export's quirks — mixed encodings, the header row, Address as key — and returns a structured summary to reason about rather than a raw table to squint at."
+      },
+      {
+        "title": "Resolve indexability as a gate sequence",
+        "body": "Status 200 → robots directive → canonical → robots.txt → internally reachable → in sitemap. Report \"fails at gate N\", never a pile of independent flags."
+      },
+      {
+        "title": "Run the five analyses that matter",
+        "body": "Crawl depth, true orphans (traffic or links but zero inlinks), redirect chains resolved to final destination, internal link equity per URL, and duplicate clusters diagnosed as <span class=\"text-on-surface font-semibold\">patterns</span> rather than 400 pasted rows."
+      },
+      {
+        "title": "Weight, rank, and hand over",
+        "body": "Every finding carries scale, evidence, and business weight. Output includes a dev-ready redirect remediation list and specific internal linking actions — link these money pages from those authority pages."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the bundle</span>\ngit clone https://github.com/seosdm/seo-skills.git\ncd seo-skills\n\n<span class=\"text-outline\"># 2. Export internal_all.csv from Screaming Frog (add all_inlinks.csv if you can)</span>\npython skills/screaming-frog-crawl-analysis/scripts/analyze_crawl.py \\\n  internal_all.csv --inlinks all_inlinks.csv\n\n<span class=\"text-outline\"># 3. Copy skills/screaming-frog-crawl-analysis/SKILL.md into a Claude Project:</span>\n<span class=\"text-primary-fixed\">Run screaming-frog-crawl-analysis on this export.</span>\n<span class=\"text-primary-fixed\">GSC data attached for weighting.</span>",
+    "sampleTitle": "Indexability by First Failing Gate",
+    "sampleStats": [
+      {
+        "value": "61%",
+        "label": "Indexable",
+        "accent": true
+      },
+      {
+        "value": "1,204",
+        "label": "Fail · Canonical",
+        "accent": false
+      },
+      {
+        "value": "318",
+        "label": "Fail · Depth >4",
+        "accent": false
+      },
+      {
+        "value": "27",
+        "label": "True Orphans",
+        "accent": true
+      }
+    ],
+    "sampleVerdict": "faceted navigation on /shop/* is generating 1,204 self-conflicting canonicals — one templating bug, not 1,204 problems. Fixing it recovers 39% of the crawl. The 27 true orphans carry backlinks and are the second move, not the first.",
+    "ctaHref": "../fractional-seo-manager.html",
+    "ctaLabel": "Get This Run On Your Site",
+    "related": [
+      "gsc-opportunity-mining",
+      "backlink-keyword-gap",
+      "ai-visibility-audit"
+    ],
+    "relatedBlurb": "The technical floor everything else stands on."
+  },
+  {
+    "slug": "gsc-opportunity-mining",
+    "name": "GSC Opportunity Mining",
+    "nameHtml": "GSC Opportunity <span class=\"text-primary\">Mining</span>",
+    "stage": "Opportunity Discovery",
+    "repo": "https://github.com/seosdm/seo-skills",
+    "cardBlurb": "Striking-distance keywords, CTR underperformance, cannibalization, and page decay — mined from the only dataset that tells you what Google already thinks you're relevant for.",
+    "tagline": "Search Console is the only dataset that tells you what Google <em>already</em> thinks you're relevant for. The fastest organic wins almost always live in queries you already rank 5–15 for.",
+    "description": "A Claude skill that mines Search Console for striking-distance keywords, CTR gaps, cannibalization and page decay. Free to fork.",
+    "problem": [
+      "Most audits reach for a third-party keyword tool and ignore the one dataset that reflects reality. Meanwhile page-one-adjacent queries sit there, already earning impressions, needing a title tag rather than a new article.",
+      "The bigger miss is decay. A single-period report physically cannot see it — and what you're <span class=\"text-on-surface font-semibold\">losing</span> is usually more urgent than what you could gain.",
+      "This skill always pulls two periods, separates seasonal from algorithmic from genuine decay, and refuses to recommend new content when the win is fixing a page that already ranks sixth."
+    ],
+    "steps": [
+      {
+        "title": "Pull two periods, always",
+        "body": "Via the connected GSC source or a Performance CSV — query and page level, with position, impressions, clicks and CTR, plus the prior comparable period so decay is computable."
+      },
+      {
+        "title": "Mine striking distance",
+        "body": "Queries at average position 5–15 with real impressions, ranked by impressions × (1 − current CTR). Then segment: is the ranking URL the <span class=\"text-on-surface font-semibold\">right</span> URL? If not it's a mapping fix, not a content fix."
+      },
+      {
+        "title": "Find the same-day wins",
+        "body": "Compare actual CTR to the expected curve for each position. Ranking well below it means a title/meta problem or someone owning the snippet above you — fixable this afternoon, no content work."
+      },
+      {
+        "title": "Diagnose cannibalization and decay",
+        "body": "Group queries where multiple URLs draw impressions, flag flip-flopping, and classify every declining page as seasonal, algorithmic, or decaying. Mislabeling this wastes months."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the bundle</span>\ngit clone https://github.com/seosdm/seo-skills.git\n\n<span class=\"text-outline\"># 2. Connect GSC, or export Queries + Pages from the GSC UI (16 months if offered)</span>\n\n<span class=\"text-outline\"># 3. Copy skills/gsc-opportunity-mining/SKILL.md into a Claude Project:</span>\n<span class=\"text-primary-fixed\">Run gsc-opportunity-mining for [property].</span>\n<span class=\"text-primary-fixed\">Last 3 months vs prior period.</span>",
+    "sampleTitle": "Opportunity Pool, Last 90 Days",
+    "sampleStats": [
+      {
+        "value": "142",
+        "label": "Striking Distance",
+        "accent": true
+      },
+      {
+        "value": "38",
+        "label": "CTR Gaps",
+        "accent": true
+      },
+      {
+        "value": "11",
+        "label": "Cannibalized",
+        "accent": false
+      },
+      {
+        "value": "−24%",
+        "label": "Decaying Pages",
+        "accent": false
+      }
+    ],
+    "sampleVerdict": "the headline is the decay, not the upside. Nine pages lost 24% of clicks on one date — a broad algorithmic drop, not stale content, so rewriting them would have wasted a quarter. The 38 CTR gaps are title-tag edits worth more than any new article on the roadmap.",
+    "ctaHref": "../semrush-ahrefs-coaching.html",
+    "ctaLabel": "Coach My Team On This",
+    "related": [
+      "screaming-frog-crawl-analysis",
+      "seo-content-brief",
+      "backlink-keyword-gap"
+    ],
+    "relatedBlurb": "Where you already rank, and the cheapest wins."
+  },
+  {
+    "slug": "backlink-keyword-gap",
+    "name": "Backlink & Keyword Gap",
+    "nameHtml": "Backlink &amp; <span class=\"text-primary\">Keyword Gap</span>",
+    "stage": "Authority & Coverage",
+    "repo": "https://github.com/seosdm/seo-skills",
+    "cardBlurb": "Link velocity, anchor risk, reclamation, and the referring-domain gap — turned into a sequenced roadmap instead of \"build more links\".",
+    "tagline": "\"Build more links\" is not a strategy. \"These 12 referring domains link to all three competitors and none to you\" is — and it comes with names, not adjectives.",
+    "description": "A Claude skill for backlink profile audits and competitor keyword-gap analysis — link velocity, anchor risk, reclamation, and a content roadmap. Free to fork.",
+    "problem": [
+      "Link profiles get reported by raw count, which tells you almost nothing. Five hundred links from irrelevant low-authority domains are worth less than twenty relevant editorial ones.",
+      "Meanwhile the single most actionable output in link building — <span class=\"text-on-surface font-semibold\">domains that already link to two or more competitors but not to you</span> — almost never appears in the deck. They're pre-qualified and reachable. They're the list.",
+      "This skill is also deliberately conservative on disavow. Most toxic-link panic is unwarranted, Google ignores junk on its own, and disavowing good links does real damage. It will tell you plainly when the answer is <em>don't</em>."
+    ],
+    "steps": [
+      {
+        "title": "Pull client and competitors identically",
+        "body": "Referring domains, backlink profile, anchor distribution, organic keywords and gap data — through the same pull, so the comparison is apples-to-apples rather than two different snapshots."
+      },
+      {
+        "title": "Read the profile's shape",
+        "body": "Velocity trend (a rising lost-link line is often the hidden cause of a slow decline), quality by authority tier and topical relevance, and anchor-text risk across branded / naked / generic / exact-match."
+      },
+      {
+        "title": "Bank the reclamation wins",
+        "body": "Lost links worth chasing and unlinked brand mentions — both convert far faster than cold outreach. The skill drafts the outreach for the top targets rather than leaving you a list."
+      },
+      {
+        "title": "Turn the gap into a roadmap",
+        "body": "Referring-domain gap ranked by how many competitors each links to, then keyword gaps clustered into pillars and supporting pieces, sequenced by (traffic potential × relevance) ÷ difficulty."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the bundle</span>\ngit clone https://github.com/seosdm/seo-skills.git\n\n<span class=\"text-outline\"># 2. Connect Ahrefs, or export referring domains + anchors + keyword gap as CSV</span>\n\n<span class=\"text-outline\"># 3. Copy skills/backlink-keyword-gap/SKILL.md into a Claude Project:</span>\n<span class=\"text-primary-fixed\">Run backlink-keyword-gap for [domain]</span>\n<span class=\"text-primary-fixed\">vs [competitor1], [competitor2], [competitor3].</span>",
+    "sampleTitle": "Gap Analysis vs Three Competitors",
+    "sampleStats": [
+      {
+        "value": "47",
+        "label": "Domain Gap",
+        "accent": true
+      },
+      {
+        "value": "12",
+        "label": "Link To All 3",
+        "accent": true
+      },
+      {
+        "value": "31%",
+        "label": "Exact-Match Anchors",
+        "accent": false
+      },
+      {
+        "value": "0",
+        "label": "Recommend Disavow",
+        "accent": false
+      }
+    ],
+    "sampleVerdict": "twelve domains link to every competitor and not to you — that's the quarter's outreach list, already qualified. Separately, exact-match anchors at 31% is a footprint worth diluting. Nothing in the profile warrants a disavow file; the junk here is ordinary and Google is already ignoring it.",
+    "ctaHref": "../semrush-ahrefs-coaching.html",
+    "ctaLabel": "Coach My Team On This",
+    "related": [
+      "gsc-opportunity-mining",
+      "ai-visibility-audit",
+      "seo-content-brief"
+    ],
+    "relatedBlurb": "The referring-domain gap that feeds AI citations."
+  },
+  {
+    "slug": "seo-content-brief",
+    "name": "SEO Content Brief",
+    "nameHtml": "SEO Content <span class=\"text-primary\">Brief</span>",
+    "stage": "Content Production",
+    "repo": "https://github.com/seosdm/seo-skills",
+    "cardBlurb": "A brief is a contract with the writer. Intent read from the actual SERP, must-cover entities, real internal links, and word counts derived from what ranks.",
+    "tagline": "A brief is a contract with the writer. If it doesn't constrain them, it isn't a brief — it's a suggestion. Every section here is specific enough that two writers would produce structurally similar articles.",
+    "description": "A Claude skill that produces writer-ready SEO content briefs — SERP-derived intent, must-cover entities, verified internal links, and honest risk. Free to fork.",
+    "problem": [
+      "Most briefs are a keyword and a word count. The writer fills the gap with judgment they were never given, and the result fights the SERP.",
+      "If every result for a term is a listicle, a narrative essay will not rank regardless of how good it is. Intent has to be <span class=\"text-on-surface font-semibold\">read from the actual SERP</span>, not assumed from the keyword.",
+      "The most valuable thing this skill does is occasionally talk you out of the page. A brief that says \"update the existing URL\" or \"you cannot win this term, here's the longer-tail entry point\" is worth more than one that dutifully specs a page nobody will find."
+    ],
+    "steps": [
+      {
+        "title": "Read the SERP, don't assume it",
+        "body": "Top 8 results: page type, title format, depth, freshness, domain profile. Classify intent, name the dominant format, and check whether there's an AI Overview and what it cites — that's your extractable-answer target."
+      },
+      {
+        "title": "Decide whether the page should exist",
+        "body": "Does a page already target this? Can this domain realistically compete? Does it serve the business goal or just traffic? The answer becomes a Recommendation block at the top of the brief."
+      },
+      {
+        "title": "Write the outline as instructions",
+        "body": "H1, then every H2 and H3 with a note on what belongs under it. Mark the section that answers the query directly and put it above the fold — that's what gets extracted into snippets and AI answers."
+      },
+      {
+        "title": "Constrain the specs honestly",
+        "body": "Word count derived from the ranking set with the observed range stated. Internal links as <span class=\"text-on-surface font-semibold\">verified real URLs</span>, at least one to a money page. Plus two or three sentences on what would make this page fail."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the bundle</span>\ngit clone https://github.com/seosdm/seo-skills.git\n\n<span class=\"text-outline\"># 2. Copy skills/seo-content-brief/SKILL.md into a Claude Project, then prompt:</span>\n<span class=\"text-primary-fixed\">Run seo-content-brief.</span>\n<span class=\"text-primary-fixed\">Keyword: [target]. Domain: [site]. Goal: rank / convert / support.</span>\n\n<span class=\"text-outline\"># 3. Hand the output straight to the writer. That's the point.</span>",
+    "sampleTitle": "Brief Specs, Derived Not Defaulted",
+    "sampleStats": [
+      {
+        "value": "1,850",
+        "label": "Words (range 1.4k–2.3k)",
+        "accent": true
+      },
+      {
+        "value": "Listicle",
+        "label": "SERP Format",
+        "accent": true
+      },
+      {
+        "value": "14",
+        "label": "Must-Cover Entities",
+        "accent": false
+      },
+      {
+        "value": "5",
+        "label": "Internal Links",
+        "accent": false
+      }
+    ],
+    "sampleVerdict": "commercial-investigation intent, and every ranking result is a comparison listicle — a narrative guide would not place here. Recommendation is to update the existing URL rather than publish new, because it already earns impressions for four of the secondary terms.",
+    "ctaHref": "../seo-coaching.html",
+    "ctaLabel": "Train My Team To Run This",
+    "related": [
+      "gsc-opportunity-mining",
+      "ai-visibility-audit",
+      "cro-page-teardown"
+    ],
+    "relatedBlurb": "Briefs built for extraction, not just ranking."
+  },
+  {
+    "slug": "local-seo-gbp-audit",
+    "name": "Local SEO & GBP Audit",
+    "nameHtml": "Local SEO &amp; <span class=\"text-primary\">GBP Audit</span>",
+    "stage": "Local & Map Pack",
+    "repo": "https://github.com/seosdm/seo-skills",
+    "cardBlurb": "Category strategy, NAP consistency, review velocity and sentiment, grid-aware pack visibility, and the specific prominence gap to the profile beating you.",
+    "tagline": "Local ranking is a different algorithm — relevance, distance and prominence, weighted heavily toward the profile and the review corpus rather than the website. The profile <em>is</em> the landing page for the map pack.",
+    "description": "A Claude skill that audits a Google Business Profile — categories, NAP, review velocity and map-pack prominence. Free to fork.",
+    "problem": [
+      "An SEO who treats the Business Profile as an afterthought loses local clients. Most of the ranking signal lives somewhere the website audit never looks.",
+      "The <span class=\"text-on-surface font-semibold\">primary category</span> is the single biggest lever and the one most businesses get wrong. A wrong primary caps everything else you might do.",
+      "And a single-point rank check is misleading for local — a profile can rank first at the storefront and vanish two miles away. This skill states that caveat every time rather than quietly reporting one number."
+    ],
+    "steps": [
+      {
+        "title": "Fix the category first",
+        "body": "Check the primary against what the current pack occupants use for the target term, then recommend it plus every relevant secondary. Nothing else matters until this is right."
+      },
+      {
+        "title": "Standardize NAP to byte-identical",
+        "body": "Name, address and phone across the profile, the website and major citations. Suite vs Ste, (416) vs 416 — each inconsistency fragments prominence. Output is the canonical version plus every deviation by source."
+      },
+      {
+        "title": "Read reviews as data, not a score",
+        "body": "Velocity and recency against competitors, owner-response rate, and sentiment themes mined from the <span class=\"text-on-surface font-semibold\">text</span> — free voice-of-customer material that feeds content and CRO, not just a star average."
+      },
+      {
+        "title": "Name the prominence gap",
+        "body": "\"They hold 340 reviews at 4.8 adding 20 a month; you have 60 at 4.6 adding 2\" is an actionable gap. Ends in a 90-day plan that separates profile work from website work from review work."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the bundle</span>\ngit clone https://github.com/seosdm/seo-skills.git\n\n<span class=\"text-outline\"># 2. Copy skills/local-seo-gbp-audit/SKILL.md into a Claude Project, then prompt:</span>\n<span class=\"text-primary-fixed\">Run local-seo-gbp-audit for [business], [city].</span>\n<span class=\"text-primary-fixed\">Target terms: [3–5]. Pack competitors: [3–5].</span>\n\n<span class=\"text-outline\"># 3. Spot-check rank from several points, not one. The skill will insist.</span>",
+    "sampleTitle": "Prominence Gap vs Pack Leader",
+    "sampleStats": [
+      {
+        "value": "Wrong",
+        "label": "Primary Category",
+        "accent": true
+      },
+      {
+        "value": "2/mo",
+        "label": "Review Velocity",
+        "accent": false
+      },
+      {
+        "value": "20/mo",
+        "label": "Leader Velocity",
+        "accent": true
+      },
+      {
+        "value": "6",
+        "label": "NAP Conflicts",
+        "accent": false
+      }
+    ],
+    "sampleVerdict": "the primary category doesn't match what any pack occupant uses for the target term — that single change gates everything else, so it goes first and alone. Review velocity is the structural gap after that: ten times behind the leader, which no amount of on-site work compensates for.",
+    "ctaHref": "../seo-consultant-canada.html",
+    "ctaLabel": "Get Local Help In Canada",
+    "related": [
+      "screaming-frog-crawl-analysis",
+      "cro-page-teardown",
+      "seo-content-brief"
+    ],
+    "relatedBlurb": "The map pack runs on a different algorithm."
+  },
+  {
+    "slug": "cro-page-teardown",
+    "name": "CRO Page Teardown",
+    "nameHtml": "CRO Page <span class=\"text-primary\">Teardown</span>",
+    "stage": "Conversion",
+    "repo": "https://github.com/seosdm/cro-page-teardown",
+    "cardBlurb": "Friction mapped to funnel stage, hypotheses with stated mechanisms, and a queue split into just-do-it, test-it, and research-it.",
+    "tagline": "Opinions about button colours are worthless. This produces hypotheses tied to a specific friction, with a stated mechanism and a way to measure it — and it won't recommend a test your traffic can't support.",
+    "description": "A Claude skill that runs a structured conversion teardown — friction map, ranked hypotheses, prioritized test queue. Free to fork.",
+    "problem": [
+      "Most page feedback is a list of preferences dressed as expertise. \"Make the CTA bigger\" has no mechanism, so it can't be right or wrong — it just ships and nothing changes.",
+      "Worse, most teams A/B test at volumes that cannot resolve the difference. Under roughly a thousand conversions a month, testing is theatre; sequential changes and five user interviews will teach you more.",
+      "And frequently the page isn't the problem. If the real constraint is the offer or the traffic quality, this skill says that <span class=\"text-on-surface font-semibold\">first</span>, before anything else. Most \"CRO problems\" are targeting problems."
+    ],
+    "steps": [
+      {
+        "title": "Read the page as a visitor does",
+        "body": "The five-second test from above the fold alone: what is this, who is it for, why this one, what do I do next. If any is unanswerable that's finding #1 and it outranks everything else on the page."
+      },
+      {
+        "title": "Map friction to funnel stage",
+        "body": "Every finding is classified attention, motivation, anxiety, or friction. These have different fixes, and anxiety and friction problems are usually far cheaper wins than motivation problems."
+      },
+      {
+        "title": "Write hypotheses with mechanisms",
+        "body": "\"Because [evidence], [segment] is [stage problem]. Changing X to Y should increase [metric] because [mechanism].\" Any hypothesis without a stateable mechanism is <span class=\"text-on-surface font-semibold\">rejected</span>, not softened."
+      },
+      {
+        "title": "Split the queue three ways",
+        "body": "Just do it (high confidence, low effort, no test needed), test it (real uncertainty and enough traffic, with MDE and runtime), and research it — naming the method and the exact question to ask."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the repo</span>\ngit clone https://github.com/seosdm/cro-page-teardown.git\n\n<span class=\"text-outline\"># 2. Copy SKILL.md into a Claude Project, then prompt:</span>\n<span class=\"text-primary-fixed\">Run cro-page-teardown on [url].</span>\n<span class=\"text-primary-fixed\">Conversion action: [x]. Traffic source: [y]. ~[n] conversions/month.</span>\n\n<span class=\"text-outline\"># 3. Try it on your own homepage first. It will not be gentle.</span>",
+    "sampleTitle": "Findings by Funnel Stage",
+    "sampleStats": [
+      {
+        "value": "4",
+        "label": "Attention",
+        "accent": true
+      },
+      {
+        "value": "2",
+        "label": "Motivation",
+        "accent": false
+      },
+      {
+        "value": "6",
+        "label": "Anxiety",
+        "accent": true
+      },
+      {
+        "value": "3",
+        "label": "Friction",
+        "accent": false
+      }
+    ],
+    "sampleVerdict": "the page fails the five-second test on \"why this one\" — four unfalsifiable claims above the fold and no proof adjacent to the ask. At 340 conversions a month there isn't traffic to A/B test this, so the queue is sequential: fix the six anxiety findings first, then run five interviews before touching the offer.",
+    "ctaHref": "../growth-manager.html",
+    "ctaLabel": "Bring Me In On Growth",
+    "related": [
+      "seo-content-brief",
+      "agency-ops-clickup",
+      "gsc-opportunity-mining"
+    ],
+    "relatedBlurb": "Ranking is worthless if the page doesn't convert."
+  },
+  {
+    "slug": "agency-ops-clickup",
+    "name": "Agency Ops · ClickUp",
+    "nameHtml": "Agency Ops <span class=\"text-primary\">· ClickUp</span>",
+    "stage": "Orchestration",
+    "repo": "https://github.com/seosdm/agency-ops-clickup",
+    "cardBlurb": "Turns a ClickUp workspace into a weekly delivery report — account health, capacity bottlenecks, stalled work grouped by cause, and seven ranked actions.",
+    "tagline": "At 5–20 accounts the failure mode isn't bad work — it's silent drift on one client while attention sits on another. This surfaces the drift, with the chase emails already written.",
+    "description": "A Claude skill that turns a ClickUp workspace into a weekly agency delivery and pipeline health report. Free to fork.",
+    "problem": [
+      "Agency status reports measure the wrong thing. Tasks are closing, everything's green, and meanwhile one account hasn't seen a client-facing deliverable in five weeks.",
+      "Closing internal tasks while producing nothing the client can feel is the classic agency failure, so this skill will never mark an account green on throughput alone. <span class=\"text-on-surface font-semibold\">Silence precedes churn</span> — days since last contact is a first-class signal here.",
+      "It's also deliberately strict. A report where everything is green is a report nobody reads twice."
+    ],
+    "steps": [
+      {
+        "title": "Score every account on six signals",
+        "body": "Throughput over 14 days, oldest untouched task, overdue vs no-due-date, unassigned work, days since last client-facing deliverable, days since last contact. Green, Amber, or Red — two breaches or 30 days without output is Red."
+      },
+      {
+        "title": "Find the capacity bottleneck",
+        "body": "Open tasks, overdue count and tracked hours per person. Anyone carrying 30% above the team median is where the next missed deadline comes from. If one person blocks three Red accounts, that's <span class=\"text-on-surface font-semibold\">structural</span>, and the report says so."
+      },
+      {
+        "title": "Group stalled work by cause",
+        "body": "Everything untouched over 21 days sorted into blocked-on-client, blocked-internally, scope creep, or genuinely forgotten. Most agency chaos is the first and third masquerading as a capacity problem."
+      },
+      {
+        "title": "Cap the actions at seven",
+        "body": "Ranked, each with an owner and a day, opening with a single-sentence \"the one thing\". Chase emails for client-blocked items come pre-drafted — the report should reduce work, not create it."
+      }
+    ],
+    "install": "<span class=\"text-outline\"># 1. Clone the repo</span>\ngit clone https://github.com/seosdm/agency-ops-clickup.git\n\n<span class=\"text-outline\"># 2. Connect ClickUp (or export tasks to CSV), then prompt:</span>\n<span class=\"text-primary-fixed\">Run the weekly agency-ops-clickup report.</span>\n<span class=\"text-primary-fixed\">Workspace: [name]. Week of [date].</span>\n\n<span class=\"text-outline\"># 3. Run it the same morning every week. The trend is the product.</span>",
+    "sampleTitle": "Account Health, Week Of",
+    "sampleStats": [
+      {
+        "value": "7",
+        "label": "Green",
+        "accent": false
+      },
+      {
+        "value": "4",
+        "label": "Amber",
+        "accent": true
+      },
+      {
+        "value": "2",
+        "label": "Red",
+        "accent": true
+      },
+      {
+        "value": "31d",
+        "label": "Longest Silence",
+        "accent": false
+      }
+    ],
+    "sampleVerdict": "both Red accounts trace to the same person, who is also carrying 40% above the team median — that's a structural problem, not a productivity one, and no amount of chasing fixes it. Nine of the fourteen stalled tasks are blocked on clients; the chase emails are drafted and attached.",
+    "ctaHref": "../clickup-consultant.html",
+    "ctaLabel": "Build This Into My Agency",
+    "related": [
+      "cro-page-teardown",
+      "gsc-opportunity-mining",
+      "screaming-frog-crawl-analysis"
+    ],
+    "relatedBlurb": "The orchestration layer that runs the rest on schedule."
+  }
+]

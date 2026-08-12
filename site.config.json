@@ -1,0 +1,100 @@
+{
+  "site": "https://semilshah.me",
+  "cms": "https://cms.semilshah.me/wp-json/wp/v2",
+  "postDir": "insights",
+  "defaultOgImage": "https://semilshah.me/og-image.jpg",
+  "social": {
+    "linkedin": "https://linkedin.com/in/semshah143",
+    "x": "https://x.com/semshah143",
+    "github": "https://github.com/seosdm"
+  },
+  "contact": {
+    "email": "hi@semilshah.me",
+    "phone": "+16393902170"
+  },
+  "noindex": [
+    "blog-post.html"
+  ],
+  "pages": {
+    "index.html": {
+      "nav": "home",
+      "priority": "1.0",
+      "changefreq": "weekly"
+    },
+    "about.html": {
+      "nav": "about",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    "services.html": {
+      "nav": "services",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "fractional-seo-manager.html": {
+      "nav": "fractional-seo-manager",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "growth-manager.html": {
+      "nav": "growth-manager",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "seo-coaching.html": {
+      "nav": "seo-coaching",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "clickup-consultant.html": {
+      "nav": "clickup-consultant",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "semrush-ahrefs-coaching.html": {
+      "nav": "semrush-ahrefs-coaching",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "seo-consultant-canada.html": {
+      "nav": "seo-consultant-canada",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "brand-visibility.html": {
+      "nav": "brand-visibility",
+      "priority": "0.9",
+      "changefreq": "monthly"
+    },
+    "work.html": {
+      "nav": "work",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "case-study.html": {
+      "nav": "work",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "build.html": {
+      "nav": "build",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    "insights.html": {
+      "nav": "insights",
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "contact.html": {
+      "nav": "contact",
+      "priority": "0.8",
+      "changefreq": "monthly"
+    },
+    "blog-post.html": {
+      "nav": "insights",
+      "skipSitemap": true
+    }
+  },
+  "skillDir": "build"
+}
