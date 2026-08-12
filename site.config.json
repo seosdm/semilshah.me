@@ -56,11 +56,6 @@
       "priority": "0.7",
       "changefreq": "monthly"
     },
-    "case-study.html": {
-      "nav": "work",
-      "priority": "0.7",
-      "changefreq": "monthly"
-    },
     "build.html": {
       "nav": "build",
       "priority": "0.8",
