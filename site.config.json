@@ -126,5 +126,8 @@
       "changefreq": "monthly"
     }
   },
-  "skillDir": "build"
+  "skillDir": "build",
+  "sitemapExcludeDirs": [
+    "insights"
+  ]
 }

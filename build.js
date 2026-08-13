@@ -288,7 +288,9 @@ function writeStackCards() {
 function writeSitemap(pages) {
   const today = new Date().toISOString().slice(0, 10);
   const urls = pages
-    .filter(rel => !cfg.noindex.includes(rel) && !cfg.pages[rel]?.skipSitemap)
+    .filter(rel => !cfg.noindex.includes(rel)
+                 && !cfg.pages[rel]?.skipSitemap
+                 && !(cfg.sitemapExcludeDirs ?? []).some(d => rel.startsWith(`${d}/`)))
     .sort((a, b) => (a === 'index.html' ? -1 : b === 'index.html' ? 1 : a.localeCompare(b)))
     .map(rel => {
       const meta = cfg.pages[rel]
