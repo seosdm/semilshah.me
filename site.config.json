@@ -104,6 +104,26 @@
       "nav": "coaching-clickup",
       "priority": "0.8",
       "changefreq": "monthly"
+    },
+    "work/event-venue-local-seo.html": {
+      "nav": "work",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "work/hvac-local-seo.html": {
+      "nav": "work",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "work/multi-location-home-services.html": {
+      "nav": "work",
+      "priority": "0.7",
+      "changefreq": "monthly"
+    },
+    "work/ecommerce-apparel-seo.html": {
+      "nav": "work",
+      "priority": "0.7",
+      "changefreq": "monthly"
     }
   },
   "skillDir": "build"
