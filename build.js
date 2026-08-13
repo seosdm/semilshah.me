@@ -99,7 +99,7 @@ const strip = s => String(s ?? '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').
 
 async function fetchPosts() {
   if (SKIP_CMS) return [];
-  const url = `${cfg.cms}/posts?per_page=100&_embed&status=publish`;
+  const url = `${cfg.cms}/posts&per_page=100&_embed=1&status=publish`;
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);

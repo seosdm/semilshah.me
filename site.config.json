@@ -1,6 +1,6 @@
 {
   "site": "https://semilshah.me",
-  "cms": "https://cms.semilshah.me/wp-json/wp/v2",
+  "cms": "https://cms.semilshah.me/?rest_route=/wp/v2",
   "postDir": "insights",
   "defaultOgImage": "https://semilshah.me/og-image.jpg",
   "social": {
@@ -129,5 +129,6 @@
   "skillDir": "build",
   "sitemapExcludeDirs": [
     "insights"
-  ]
+  ],
+  "cmsNote": "Pretty /wp-json/ routes 404 on this subdomain (rewrite rules not resolving). The ?rest_route= fallback works and needs & for params, not ?. If permalinks are fixed later, set cms to https://cms.semilshah.me/wp-json/wp/v2 and change the two query joins back from & to ?."
 }
