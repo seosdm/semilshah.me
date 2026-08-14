@@ -3,12 +3,16 @@
  * build.js — semilshah.me site builder
  *
  * Stamps one canonical nav + footer into every page, sets the active nav state,
- * guarantees a correct canonical tag, pre-renders a static page per WordPress post,
- * and regenerates sitemap.xml from the real file list.
+ * guarantees a correct canonical tag, and regenerates sitemap.xml from the real
+ * file list.
+ *
+ * Blog posts are NOT built here. WordPress at cms.semilshah.me is the single
+ * source of truth for them: insights.html fetches the list from the REST API at
+ * runtime and links to each post's own permalink. Nothing about a post is
+ * duplicated into this repo, so publishing never requires a rebuild or upload.
  *
  * Usage:
- *   node build.js            build everything (fetches posts from the CMS)
- *   node build.js --no-cms   rebuild nav/footer/sitemap only, skip the CMS fetch
+ *   node build.js
  */
 
 const fs = require('fs');
@@ -16,11 +20,9 @@ const path = require('path');
 
 const ROOT = __dirname;
 const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'site.config.json'), 'utf8'));
-const SKIP_CMS = process.argv.includes('--no-cms');
 
 const HEADER = fs.readFileSync(path.join(ROOT, '_partials/header.html'), 'utf8').trim();
 const FOOTER = fs.readFileSync(path.join(ROOT, '_partials/footer.html'), 'utf8').trim();
-const POST_TPL = fs.readFileSync(path.join(ROOT, '_partials/post.html'), 'utf8');
 
 const YEAR = new Date().getFullYear();
 let changed = 0;
@@ -88,76 +90,6 @@ function listPages(dir = ROOT, out = []) {
     else if (e.name.endsWith('.html')) out.push(path.relative(ROOT, abs).split(path.sep).join('/'));
   }
   return out;
-}
-
-/* ------------------------------------------------------------ CMS → pages */
-
-const esc = s => String(s ?? '')
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
-const strip = s => String(s ?? '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-
-async function fetchPosts() {
-  if (SKIP_CMS) return [];
-  const url = `${cfg.cms}/posts&per_page=100&_embed=1&status=publish`;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    console.warn(`  ! CMS unreachable (${err.message}) — keeping existing post pages`);
-    return null;
-  }
-}
-
-function writePost(post) {
-  const rel = `${cfg.postDir}/${post.slug}.html`;
-  const base = baseFor(rel);
-  const canonical = `${cfg.site}/${rel}`;
-  const title = strip(post.title?.rendered);
-  let desc = strip(post.excerpt?.rendered);
-  if (desc.length > 155) desc = desc.slice(0, 152).replace(/\s+\S*$/, '') + '…';
-  const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? cfg.defaultOgImage;
-  const cat = post._embedded?.['wp:term']?.[0]?.[0]?.name ?? 'Insight';
-  const iso = post.date;
-  const human = new Date(post.date).toLocaleDateString('en-CA', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  });
-
-  const schema = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: title,
-    description: desc,
-    image: img,
-    datePublished: iso,
-    dateModified: post.modified ?? iso,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
-    author: {
-      '@type': 'Person', name: 'Semil Shah', url: `${cfg.site}/about.html`,
-      sameAs: [cfg.social.linkedin, cfg.social.x, cfg.social.github]
-    },
-    publisher: { '@type': 'Person', name: 'Semil Shah', url: cfg.site }
-  }, null, 2);
-
-  const html = POST_TPL
-    .replace(/\{\{NAV\}\}/g, setActive(render(HEADER, base), 'insights'))
-    .replace(/\{\{FOOTER\}\}/g, render(FOOTER, base))
-    .replace(/\{\{SCHEMA\}\}/g, schema)
-    .replace(/\{\{CANONICAL\}\}/g, canonical)
-    .replace(/\{\{TITLE\}\}/g, esc(title))
-    .replace(/\{\{DESCRIPTION\}\}/g, esc(desc))
-    .replace(/\{\{OGIMAGE\}\}/g, esc(img))
-    .replace(/\{\{CATEGORY\}\}/g, esc(cat))
-    .replace(/\{\{DATE_ISO\}\}/g, iso)
-    .replace(/\{\{DATE_HUMAN\}\}/g, human)
-    .replace(/\{\{BASE\}\}/g, base)
-    .replace(/\{\{BODY\}\}/g, post.content?.rendered ?? '');
-
-  fs.mkdirSync(path.join(ROOT, cfg.postDir), { recursive: true });
-  fs.writeFileSync(path.join(ROOT, rel), html);
-  console.log(`  + post  ${rel}`);
-  return rel;
 }
 
 /* ------------------------------------------------------- skills -> /build */
@@ -288,14 +220,11 @@ function writeStackCards() {
 function writeSitemap(pages) {
   const today = new Date().toISOString().slice(0, 10);
   const urls = pages
-    .filter(rel => !cfg.noindex.includes(rel)
-                 && !cfg.pages[rel]?.skipSitemap
-                 && !(cfg.sitemapExcludeDirs ?? []).some(d => rel.startsWith(`${d}/`)))
+    .filter(rel => !cfg.noindex.includes(rel) && !cfg.pages[rel]?.skipSitemap)
     .sort((a, b) => (a === 'index.html' ? -1 : b === 'index.html' ? 1 : a.localeCompare(b)))
     .map(rel => {
       const meta = cfg.pages[rel]
-        ?? (rel.startsWith(`${cfg.postDir}/`) ? { priority: '0.6', changefreq: 'monthly' }
-        : (cfg.skillDir && rel.startsWith(`${cfg.skillDir}/`)) ? { priority: '0.7', changefreq: 'monthly' }
+        ?? ((cfg.skillDir && rel.startsWith(`${cfg.skillDir}/`)) ? { priority: '0.7', changefreq: 'monthly' }
         : {});
       const loc = rel === 'index.html' ? `${cfg.site}/` : `${cfg.site}/${rel}`;
       const lastmod = fs.statSync(path.join(ROOT, rel)).mtime.toISOString().slice(0, 10);
@@ -318,15 +247,8 @@ function writeSitemap(pages) {
 
 /* ------------------------------------------------------------------ main */
 
-(async () => {
+(() => {
   console.log('Building semilshah.me\n');
-
-  const posts = await fetchPosts();
-  if (posts && posts.length) {
-    console.log(`Pre-rendering ${posts.length} post(s) from the CMS:`);
-    posts.forEach(writePost);
-    console.log('');
-  }
 
   if (SKILLS.length) {
     console.log(`Generating ${SKILLS.length} skill page(s) from skills.json:`);

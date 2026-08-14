@@ -1,0 +1,21 @@
+# semilshah.me — server rules
+#
+# Deploy: this file must sit at the DOMAIN ROOT alongside index.html
+#         (Hostinger: public_html/). FTP it like any other file.
+#
+# Canonical host is the apex, https://semilshah.me — matching `site` in
+# site.config.json, the <link rel="canonical"> tags build.js stamps, and
+# sitemap.xml. Keep all four in agreement if the canonical ever changes.
+#
+# NOT handled here, on purpose:
+#   - HTTP -> HTTPS. Hostinger already 301s that at the platform level for
+#     both hosts. Re-doing it behind their hcdn CDN with a %{HTTPS} test is
+#     a known redirect-loop trigger, because the CDN terminates TLS and the
+#     origin sees plain HTTP.
+
+RewriteEngine On
+
+# www -> non-www, preserving path and query string.
+# NE stops mod_rewrite re-escaping characters that are already encoded.
+RewriteCond %{HTTP_HOST} ^www\.semilshah\.me$ [NC]
+RewriteRule ^(.*)$ https://semilshah.me/$1 [R=301,L,NE]

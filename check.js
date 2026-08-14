@@ -41,9 +41,8 @@ for (const rel of pages) {
   const indexable = !cfg.noindex.includes(rel) && !cfg.pages[rel]?.skipSitemap;
 
   /* --- config coverage ------------------------------------------------ */
-  const isPost = rel.startsWith(`${cfg.postDir}/`);
   const isSkill = cfg.skillDir && rel.startsWith(`${cfg.skillDir}/`);
-  if (!cfg.pages[rel] && !isPost && !isSkill) err(rel, 'not listed in site.config.json — it will get no active nav state and default sitemap priority');
+  if (!cfg.pages[rel] && !isSkill) err(rel, 'not listed in site.config.json — it will get no active nav state and default sitemap priority');
 
   /* --- partials -------------------------------------------------------- */
   if (!/<!--\s*PARTIAL:NAV\s*-->/.test(html)) err(rel, 'nav is not managed by build.js (missing PARTIAL:NAV markers)');

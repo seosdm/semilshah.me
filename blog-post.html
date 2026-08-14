@@ -73,8 +73,17 @@
   </script>
 </head>
 <body class="font-body">
-<!-- PARTIAL-REDIRECT: legacy ?slug= URLs now live at /insights/<slug>.html -->
-<script>(function(){var s=new URLSearchParams(location.search).get('slug');if(s){location.replace('insights/'+s+'.html');}})();</script>
+<!-- PARTIAL-REDIRECT: legacy ?slug= URLs. The destination is whatever permalink
+     WordPress reports for that slug, so this keeps working if the permalink
+     structure changes. -->
+<script>(function(){
+  var s = new URLSearchParams(location.search).get('slug');
+  if (!s) return;
+  fetch('https://cms.semilshah.me/?rest_route=/wp/v2/posts&_fields=link&slug=' + encodeURIComponent(s))
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (p) { if (p && p[0] && p[0].link) location.replace(p[0].link); })
+    .catch(function () {});
+})();</script>
 
 <!-- PARTIAL:NAV -->
 <!-- Nav -->
@@ -313,7 +322,7 @@
 
 <script>
 (async function () {
-  const WP       = 'https://cms.semilshah.me/wp-json/wp/v2';
+  const WP       = 'https://cms.semilshah.me/?rest_route=/wp/v2';
   const loading  = document.getElementById('post-loading');
   const notfound = document.getElementById('post-notfound');
   const content  = document.getElementById('post-content');
@@ -345,7 +354,7 @@
   }
 
   try {
-    const res   = await fetch(`${WP}/posts?slug=${encodeURIComponent(slug)}&_embed&status=publish`);
+    const res   = await fetch(`${WP}/posts&slug=${encodeURIComponent(slug)}&_embed&status=publish`);
     if (!res.ok) throw new Error();
     const posts = await res.json();
     const post  = posts[0];
@@ -397,7 +406,7 @@
     try {
       const catIds   = post.categories ?? [];
       const catParam = catIds.length ? `&categories=${catIds[0]}` : '';
-      const relRes   = await fetch(`${WP}/posts?per_page=4&_embed&status=publish${catParam}`);
+      const relRes   = await fetch(`${WP}/posts&per_page=4&_embed&status=publish${catParam}`);
       const relRaw   = relRes.ok ? await relRes.json() : [];
       const related  = relRaw.filter(p => p.slug !== slug).slice(0, 3);
 
@@ -414,7 +423,7 @@
               const relDate  = formatDate(p.date);
               const relImg   = p._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null;
               return `
-                <a href="insights/${p.slug}.html"
+                <a href="${p.link}"
                    class="group bg-[#f6f6f6] hover:bg-white transition-colors p-8 flex flex-col gap-4">
                   ${relImg ? `
                     <div class="aspect-[16/9] overflow-hidden bg-[#e8e8e8] mb-2">

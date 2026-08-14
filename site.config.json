@@ -1,7 +1,6 @@
 {
   "site": "https://semilshah.me",
   "cms": "https://cms.semilshah.me/?rest_route=/wp/v2",
-  "postDir": "insights",
   "defaultOgImage": "https://semilshah.me/og-image.jpg",
   "social": {
     "linkedin": "https://linkedin.com/in/semshah143",
@@ -127,8 +126,5 @@
     }
   },
   "skillDir": "build",
-  "sitemapExcludeDirs": [
-    "insights"
-  ],
-  "cmsNote": "Pretty /wp-json/ routes 404 on this subdomain (rewrite rules not resolving). The ?rest_route= fallback works and needs & for params, not ?. If permalinks are fixed later, set cms to https://cms.semilshah.me/wp-json/wp/v2 and change the two query joins back from & to ?."
+  "cmsNote": "WordPress at cms.semilshah.me is the single source of truth for blog posts. insights.html fetches this endpoint client-side and links to each post's own permalink, so posts are never copied into this repo and publishing needs no rebuild or upload. The ?rest_route= form is used because the pretty /wp-json/ route depends on WordPress rewrite rules; join extra params with & since the base already carries a ?."
 }

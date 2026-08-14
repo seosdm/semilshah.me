@@ -207,7 +207,9 @@
       }
 
       function renderPost(post, isLast) {
-        const slug    = post.slug;
+        // The API hands back the post's real permalink, so this follows
+        // whatever structure WordPress is set to without any edit here.
+        const url     = post.link;
         const title   = stripHtml(post.title.rendered);
         const date    = formatDate(post.date);
         const cat     = getCategoryName(post);
@@ -220,11 +222,11 @@
             <div class="flex-1 md:w-4/6 mb-6 md:mb-0 md:pr-12">
               <span class="inline-block font-label text-[10px] uppercase tracking-[0.2em] font-bold text-[#9e3c00] bg-[#fff0ea] px-3 py-1 mb-4">${cat}</span>
               <h2 class="font-headline font-black uppercase tracking-tighter text-2xl md:text-3xl text-[#2f2f2f] leading-tight group-hover:text-[#9e3c00] transition-colors">
-                <a href="insights/${slug}.html">${title}</a>
+                <a href="${url}">${title}</a>
               </h2>
             </div>
             <div class="w-full md:w-1/6 flex-shrink-0 flex md:justify-end">
-              <a href="insights/${slug}.html" class="inline-flex items-center gap-2 font-label text-[10px] uppercase tracking-[0.2em] font-bold text-[#9e3c00] hover:gap-4 transition-all duration-200">
+              <a href="${url}" class="inline-flex items-center gap-2 font-label text-[10px] uppercase tracking-[0.2em] font-bold text-[#9e3c00] hover:gap-4 transition-all duration-200">
                 Read Essay
                 <span class="material-symbols-outlined text-sm">arrow_forward</span>
               </a>
