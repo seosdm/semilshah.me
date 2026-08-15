@@ -1,6 +1,6 @@
 {
   "site": "https://semilshah.me",
-  "cms": "https://cms.semilshah.me/?rest_route=/wp/v2",
+  "cms": "/insights/wp-json/wp/v2",
   "defaultOgImage": "https://semilshah.me/og-image.jpg",
   "social": {
     "linkedin": "https://linkedin.com/in/semshah143",
@@ -126,5 +126,5 @@
     }
   },
   "skillDir": "build",
-  "cmsNote": "WordPress at cms.semilshah.me is the single source of truth for blog posts. insights.html fetches this endpoint client-side and links to each post's own permalink, so posts are never copied into this repo and publishing needs no rebuild or upload. The ?rest_route= form is used because the pretty /wp-json/ route depends on WordPress rewrite rules; join extra params with & since the base already carries a ?."
+  "cmsNote": "WordPress is installed at semilshah.me/insights/ and owns the blog entirely: it renders its own index and post pages server-side. The endpoint is a same-origin relative path, so there is no CORS involved and no ?rest_route= workaround needed — pretty /wp-json/ routes work. Nothing about a post is copied into this repo. WARNING: /insights/ on the server is the WordPress install; never let a deploy delete or overwrite it."
 }

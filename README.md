@@ -6,7 +6,7 @@ Notes, drafts, the GitHub kit and blog working copies live in the sibling folder
 ```
 semilshah/
 ├── website/          <- THIS FOLDER. Upload its contents to the server root.
-├── blog-content/     <- markdown working copies of CMS posts (never uploaded)
+├── blog-content/     <- old markdown working copies of posts (never uploaded)
 └── marketer-github-kit/  <- open-source repos + skills (never uploaded)
 ```
 
@@ -20,13 +20,14 @@ Hand-editing one page is exactly how the site drifted out of sync before.
 
 ```bash
 cd website
-node build.js      # stamp nav+footer everywhere, pull posts from the CMS, rebuild sitemap
+node build.js      # stamp nav+footer everywhere, regenerate skill pages + sitemap
 node check.js      # validate — exits non-zero if anything would ship broken
 ```
 
 Then upload. If `check.js` prints ERRORS, do not upload.
 
-`node build.js --no-cms` skips the WordPress fetch (offline, or when you only touched layout).
+The build is offline and synchronous — it makes no network calls, so there is no `--no-cms`
+flag. Regenerating the 8 `build/*.html` skill pages every run is normal and idempotent.
 
 ## Adding a new page
 
@@ -40,18 +41,23 @@ The page gets the correct nav, footer, canonical, relative paths and sitemap ent
 
 ## Publishing a blog post
 
-Write it in WordPress at `cms.semilshah.me`. Then:
+Write and publish it in WordPress at **semilshah.me/insights/**. That is all.
 
-```bash
-node build.js && node check.js
-```
+WordPress owns the blog completely — it renders its own index at `/insights/` and its own
+post pages at `/insights/<slug>/`. No post is copied into this folder, so **publishing needs
+no build and no upload**. Do not reintroduce static copies of posts; that design was built,
+found to require a rebuild plus an FTP upload on every edit, and rejected.
 
-`build.js` pulls every published post from the WP REST API and writes a real static page to
-`insights/<slug>.html` — its own canonical, title, meta, OG tags and BlogPosting schema —
-and adds it to the sitemap. `insights.html` links to those static pages.
+### ⚠ Never upload anything to /insights/
 
-`blog-post.html` is the old JS template. It is now `noindex` and redirects any legacy
-`?slug=` URL to the matching static page. Keep it until the old URLs stop getting traffic.
+`public_html/insights/` **is the WordPress install.** This folder must never contain an
+`insights/` directory — `check.js` errors if one appears — and any mirroring deploy
+(`rsync --delete` and friends) must exclude `/insights/` or it will destroy the blog.
+
+`insights.html` is a separate, on-brand listing page that reads the WordPress REST API at
+`/insights/wp-json/wp/v2` (same origin, no CORS) and links to the WordPress permalinks.
+`blog-post.html` is a vestigial `noindex` shim that redirects legacy `?slug=` URLs to the
+right permalink by asking the API for it.
 
 ## What check.js catches
 
@@ -63,6 +69,7 @@ and adds it to the sitemap. `insights.html` links to those static pages.
 - Pages missing from `sitemap.xml`, or sitemap entries pointing at files that don't exist
 - Any page whose nav/footer isn't managed by `build.js`
 - Missing social links in the footer
+- An `insights/` directory existing here, which would collide with the WordPress install
 
 ## Files
 
@@ -70,8 +77,7 @@ and adds it to the sitemap. `insights.html` links to those static pages.
 |---|---|
 | `_partials/header.html` | The single source of truth for the nav |
 | `_partials/footer.html` | The single source of truth for the footer |
-| `_partials/post.html` | Template for generated blog post pages |
-| `site.config.json` | Page registry, social URLs, contact details, CMS endpoint |
+| `site.config.json` | Page registry, social URLs, contact details, WP REST endpoint |
 | `build.js` | The builder |
 | `check.js` | The pre-upload validator |
 

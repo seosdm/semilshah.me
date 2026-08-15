@@ -185,7 +185,9 @@
 
     <script>
     (async function () {
-      const WP = 'https://cms.semilshah.me/?rest_route=/wp/v2';
+      // Same-origin: WordPress lives at /insights/ on this domain, so no CORS
+      // and no ?rest_route= workaround — the pretty /wp-json/ route works.
+      const WP = '/insights/wp-json/wp/v2';
       const feed    = document.getElementById('posts-feed');
       const loading = document.getElementById('posts-loading');
       const error   = document.getElementById('posts-error');
@@ -235,7 +237,7 @@
       }
 
       try {
-        const res = await fetch(`${WP}/posts&per_page=20&_embed=1&status=publish`);
+        const res = await fetch(`${WP}/posts?per_page=20&_embed=1&status=publish`);
         if (!res.ok) throw new Error('API error');
         const posts = await res.json();
 

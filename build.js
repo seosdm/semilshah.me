@@ -6,10 +6,14 @@
  * guarantees a correct canonical tag, and regenerates sitemap.xml from the real
  * file list.
  *
- * Blog posts are NOT built here. WordPress at cms.semilshah.me is the single
- * source of truth for them: insights.html fetches the list from the REST API at
- * runtime and links to each post's own permalink. Nothing about a post is
- * duplicated into this repo, so publishing never requires a rebuild or upload.
+ * Blog posts are NOT built here. WordPress is installed at semilshah.me/insights/
+ * and owns the blog completely — it renders its own index and post pages
+ * server-side. Nothing about a post is duplicated into this repo, so publishing
+ * never requires a rebuild or an upload.
+ *
+ * ⚠ /insights/ on the SERVER is that WordPress install. This repo must never
+ * contain an insights/ directory, because uploading one would collide with it.
+ * check.js enforces that.
  *
  * Usage:
  *   node build.js

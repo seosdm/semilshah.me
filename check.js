@@ -27,6 +27,16 @@ function listPages(dir = ROOT, out = []) {
   return out;
 }
 
+/* --- the WordPress install must not be shadowed by repo files ---------------
+ * WordPress lives at semilshah.me/insights/ on the server. Deploying an
+ * insights/ directory from this repo would overwrite it, and a mirroring
+ * deploy with --delete would destroy it outright. Fail loudly before that
+ * can reach an upload.
+ */
+if (fs.existsSync(path.join(ROOT, 'insights'))) {
+  err('insights/', 'this directory must not exist — semilshah.me/insights/ is the WordPress install, and uploading over it would break the blog');
+}
+
 const pages = listPages();
 const titles = new Map();
 const descs = new Map();

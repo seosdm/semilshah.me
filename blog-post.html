@@ -79,7 +79,7 @@
 <script>(function(){
   var s = new URLSearchParams(location.search).get('slug');
   if (!s) return;
-  fetch('https://cms.semilshah.me/?rest_route=/wp/v2/posts&_fields=link&slug=' + encodeURIComponent(s))
+  fetch('/insights/wp-json/wp/v2/posts?_fields=link&slug=' + encodeURIComponent(s))
     .then(function (r) { return r.ok ? r.json() : []; })
     .then(function (p) { if (p && p[0] && p[0].link) location.replace(p[0].link); })
     .catch(function () {});
@@ -322,7 +322,7 @@
 
 <script>
 (async function () {
-  const WP       = 'https://cms.semilshah.me/?rest_route=/wp/v2';
+  const WP       = '/insights/wp-json/wp/v2';
   const loading  = document.getElementById('post-loading');
   const notfound = document.getElementById('post-notfound');
   const content  = document.getElementById('post-content');
@@ -354,7 +354,7 @@
   }
 
   try {
-    const res   = await fetch(`${WP}/posts&slug=${encodeURIComponent(slug)}&_embed&status=publish`);
+    const res   = await fetch(`${WP}/posts?slug=${encodeURIComponent(slug)}&_embed&status=publish`);
     if (!res.ok) throw new Error();
     const posts = await res.json();
     const post  = posts[0];
@@ -406,7 +406,7 @@
     try {
       const catIds   = post.categories ?? [];
       const catParam = catIds.length ? `&categories=${catIds[0]}` : '';
-      const relRes   = await fetch(`${WP}/posts&per_page=4&_embed&status=publish${catParam}`);
+      const relRes   = await fetch(`${WP}/posts?per_page=4&_embed&status=publish${catParam}`);
       const relRaw   = relRes.ok ? await relRes.json() : [];
       const related  = relRaw.filter(p => p.slug !== slug).slice(0, 3);
 
