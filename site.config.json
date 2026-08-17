@@ -6,7 +6,8 @@
     "linkedin": "https://linkedin.com/in/semshah143",
     "x": "https://x.com/semshah143",
     "instagram": "https://www.instagram.com/semilforgrowth/",
-    "github": "https://github.com/seosdm"
+    "github": "https://github.com/seosdm",
+    "upwork": "https://www.upwork.com/freelancers/growthbyaiseo"
   },
   "contact": {
     "email": "hi@semilshah.me",
@@ -60,11 +61,6 @@
       "nav": "build",
       "priority": "0.8",
       "changefreq": "monthly"
-    },
-    "insights.html": {
-      "nav": "insights",
-      "priority": "0.7",
-      "changefreq": "weekly"
     },
     "contact.html": {
       "nav": "contact",
@@ -131,5 +127,13 @@
   "themeDir": "../wordpress/themes/semilshah-insights",
   "serverPaths": [
     "/insights/"
+  ],
+  "sameAs": [
+    "https://linkedin.com/in/semshah143",
+    "https://x.com/semshah143",
+    "https://www.instagram.com/semilforgrowth/",
+    "https://github.com/seosdm",
+    "https://www.upwork.com/freelancers/growthbyaiseo",
+    "https://www.shrushti.com/author/semil-shah/"
   ]
 }

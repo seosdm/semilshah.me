@@ -81,6 +81,27 @@ function ensureCanonical(html, rel) {
   return html.replace(/<\/title>/i, `</title>\n  ${tag}`);
 }
 
+/**
+ * Rewrite every "sameAs" array in a page's JSON-LD from cfg.sameAs.
+ *
+ * These were hand-written per page and had already drifted: 28 pages listed
+ * LinkedIn/X/GitHub while about.html and index.html were missing GitHub
+ * entirely. Every profile added meant editing 30 files by hand and hoping.
+ * Generating them is the same argument as the nav and footer.
+ *
+ * Indentation is taken from the line the array starts on, so the surrounding
+ * JSON-LD keeps its original formatting instead of being reserialised.
+ */
+function syncSameAs(html) {
+  if (!cfg.sameAs?.length) return html;
+  return html.replace(/("sameAs"\s*:\s*)\[[\s\S]*?\]/g, (match, key, offset) => {
+    const lineStart = html.lastIndexOf('\n', offset) + 1;
+    const indent = html.slice(lineStart, offset).match(/^\s*/)[0];
+    const items = cfg.sameAs.map(u => `${indent}  "${u}"`).join(',\n');
+    return `${key}[\n${items}\n${indent}]`;
+  });
+}
+
 function ensureNoindex(html, rel) {
   if (!cfg.noindex.includes(rel)) return html;
   if (/name="robots"/i.test(html)) return html;
@@ -162,7 +183,7 @@ function writeSkillPages() {
       author: {
         '@type': 'Person', name: 'Semil Shah', url: cfg.site,
         jobTitle: 'SEO Consultant & Growth Strategist',
-        sameAs: [cfg.social.github, cfg.social.linkedin, cfg.social.x]
+        sameAs: cfg.sameAs ?? [cfg.social.github, cfg.social.linkedin, cfg.social.x]
       }
     }, null, 2);
 
@@ -351,6 +372,7 @@ function writeSitemap(pages) {
     html = injectBlock(html, 'footer', 'FOOTER', render(FOOTER, base));
     html = ensureCanonical(html, rel);
     html = ensureNoindex(html, rel);
+    html = syncSameAs(html);
 
     if (html !== before) { fs.writeFileSync(abs, html); changed++; console.log(`  ~ ${rel}`); }
     else console.log(`    ${rel} (no change)`);
