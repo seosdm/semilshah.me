@@ -20,7 +20,7 @@ Hand-editing one page is exactly how the site drifted out of sync before.
 
 ```bash
 cd website
-node build.js      # stamp nav+footer everywhere, regenerate skill pages + sitemap
+node build.js      # nav+footer everywhere, skill pages, sitemap, and the theme zip
 node check.js      # validate — exits non-zero if anything would ship broken
 ```
 
@@ -28,6 +28,18 @@ Then upload. If `check.js` prints ERRORS, do not upload.
 
 The build is offline and synchronous — it makes no network calls, so there is no `--no-cms`
 flag. Regenerating the 8 `build/*.html` skill pages every run is normal and idempotent.
+
+## Updating the blog theme
+
+The theme lives in `../wordpress/themes/semilshah-insights/`. Its nav and footer are
+generated from `_partials/` — never hand-edit those blocks.
+
+1. Edit the theme, and bump `Version:` in its `style.css`.
+2. `node build.js` — restamps nav/footer and writes `../wordpress/themes/semilshah-insights.zip`.
+3. Upload that zip: `/insights/wp-admin` → Appearance → Themes → Add New → Upload Theme.
+4. Purge LiteSpeed cache, then hard-reload.
+
+The theme is **not** part of the FTP upload. It is installed through the WordPress admin.
 
 ## Adding a new page
 

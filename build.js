@@ -21,6 +21,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const ROOT = __dirname;
 const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'site.config.json'), 'utf8'));
@@ -259,6 +260,39 @@ function stampTheme() {
       console.log(`    ${cfg.themeDir}/${file} (no change)`);
     }
   }
+
+  packageTheme(dir);
+}
+
+/**
+ * Zip the theme next to itself, ready to drop into Appearance → Themes → Upload.
+ *
+ * The theme is not deployed by FTP with the rest of the site — it is installed
+ * through the WordPress admin — so the build has to hand over an installable
+ * artifact or it gets zipped by hand every time, into whatever directory
+ * happened to be current. Reads the version out of style.css so the filename
+ * always says what is actually inside it.
+ */
+function packageTheme(dir) {
+  const slug = path.basename(dir);
+  const parent = path.dirname(dir);
+
+  const header = fs.readFileSync(path.join(dir, 'style.css'), 'utf8');
+  const version = header.match(/^\s*Version:\s*(.+)$/m)?.[1].trim() ?? '0.0.0';
+
+  // Sits alongside the theme it was built from, in themes/.
+  const out = path.resolve(dir, '..', `${slug}.zip`);
+  fs.rmSync(out, { force: true });
+
+  try {
+    execFileSync('zip', ['-rqX', out, slug, '-x', '*.DS_Store'], { cwd: parent });
+  } catch (err) {
+    console.warn(`  ! could not zip the theme (${err.message}) — zip it by hand`);
+    return;
+  }
+
+  const kb = (fs.statSync(out).size / 1024).toFixed(1);
+  console.log(`  = ${path.relative(path.dirname(ROOT), out)}  (v${version}, ${kb} KB)`);
 }
 
 /* -------------------------------------------------------------- sitemap */
