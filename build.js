@@ -219,6 +219,48 @@ function writeStackCards() {
   console.log(`  = build.html stack (${SKILLS.length} cards -> interior pages)`);
 }
 
+/* ------------------------------------------- WordPress theme nav + footer */
+
+/**
+ * The blog runs on WordPress at /insights/, but its nav and footer come from the
+ * same _partials/ files as every static page. Without this the two copies drift,
+ * which is the exact problem build.js exists to prevent.
+ *
+ * Base is '/' — root-absolute — because the theme renders at an arbitrary depth
+ * (/insights/, /insights/<slug>/, /insights/page/2/) where relative paths break.
+ */
+function stampTheme() {
+  if (!cfg.themeDir) return;
+
+  const dir = path.resolve(ROOT, cfg.themeDir);
+  if (!fs.existsSync(dir)) {
+    console.warn(`  ! theme not found at ${cfg.themeDir} — skipping`);
+    return;
+  }
+
+  const blocks = [
+    ['header.php', 'nav', 'NAV', setActive(render(HEADER, '/'), 'insights')],
+    ['footer.php', 'footer', 'FOOTER', render(FOOTER, '/')],
+  ];
+
+  for (const [file, tag, name, content] of blocks) {
+    const abs = path.join(dir, file);
+    if (!fs.existsSync(abs)) {
+      console.warn(`  ! ${file} missing from the theme — skipping`);
+      continue;
+    }
+    const before = fs.readFileSync(abs, 'utf8');
+    const after = injectBlock(before, tag, name, content);
+    if (after !== before) {
+      fs.writeFileSync(abs, after);
+      changed++;
+      console.log(`  ~ ${cfg.themeDir}/${file}`);
+    } else {
+      console.log(`    ${cfg.themeDir}/${file} (no change)`);
+    }
+  }
+}
+
 /* -------------------------------------------------------------- sitemap */
 
 function writeSitemap(pages) {
@@ -279,6 +321,10 @@ function writeSitemap(pages) {
     if (html !== before) { fs.writeFileSync(abs, html); changed++; console.log(`  ~ ${rel}`); }
     else console.log(`    ${rel} (no change)`);
   }
+
+  console.log('');
+  console.log('Stamping the same nav + footer into the WordPress theme:');
+  stampTheme();
 
   console.log('');
   writeSitemap(pages);

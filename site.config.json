@@ -126,5 +126,9 @@
     }
   },
   "skillDir": "build",
-  "cmsNote": "WordPress is installed at semilshah.me/insights/ and owns the blog entirely: it renders its own index and post pages server-side. The endpoint is a same-origin relative path, so there is no CORS involved and no ?rest_route= workaround needed — pretty /wp-json/ routes work. Nothing about a post is copied into this repo. WARNING: /insights/ on the server is the WordPress install; never let a deploy delete or overwrite it."
+  "cmsNote": "WordPress is installed at semilshah.me/insights/ and owns the blog entirely: it renders its own index and post pages server-side. The endpoint is a same-origin relative path, so there is no CORS involved and no ?rest_route= workaround needed — pretty /wp-json/ routes work. Nothing about a post is copied into this repo. WARNING: /insights/ on the server is the WordPress install; never let a deploy delete or overwrite it.",
+  "themeDir": "../wordpress/themes/semilshah-insights",
+  "serverPaths": [
+    "/insights/"
+  ]
 }

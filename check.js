@@ -104,20 +104,26 @@ for (const rel of pages) {
     if (raw.includes('${')) continue;                     // JS template literal
     let h = raw;
 
-    // An absolute link back to our own domain is still an internal link — resolve it.
-    if (h.startsWith(cfg.site + '/')) h = h.slice(cfg.site.length + 1) || 'index.html';
-    else if (h === cfg.site || h === cfg.site + '/') continue;
+    // An absolute link back to our own domain is still an internal link. Keep the
+    // leading slash so it lands in the root-relative branch below.
+    if (h.startsWith(cfg.site + '/')) h = h.slice(cfg.site.length);
+    else if (h === cfg.site) continue;
     else if (/^(https?:|mailto:|tel:|#|data:)/i.test(h)) continue;
 
-    const fromRoot = raw.startsWith(cfg.site);
     const target = h.split(/[?#]/)[0];
-    if (fromRoot) {
-      if (target && !fs.existsSync(path.join(ROOT, target))) err(rel, `broken internal link -> ${raw}`);
-      continue;
-    }
     if (!target) continue;
-    const abs = path.resolve(ROOT, dir, target);
-    if (!fs.existsSync(abs)) err(rel, `broken internal link -> ${h}`);
+
+    // Paths served by something other than this repo — the WordPress install at
+    // /insights/. They will never exist on disk and must not be reported broken.
+    if ((cfg.serverPaths ?? []).some(p => target === p || target.startsWith(p))) continue;
+
+    // Root-relative links resolve from the site root; everything else from the
+    // directory the page sits in.
+    const abs = target.startsWith('/')
+      ? path.join(ROOT, target.replace(/^\/+/, '') || 'index.html')
+      : path.resolve(ROOT, dir, target);
+
+    if (!fs.existsSync(abs)) err(rel, `broken internal link -> ${raw}`);
   }
 
   /* --- sitemap membership ----------------------------------------------- */
