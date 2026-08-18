@@ -47,6 +47,57 @@
       "priority": "0.9",
       "changefreq": "monthly"
     },
+    "seo-consultant-vadodara.html": {
+      "nav": "seo-consultant-vadodara",
+      "priority": "0.9",
+      "changefreq": "monthly",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Vadodara",
+          "containedInPlace": {
+            "@type": "AdministrativeArea",
+            "name": "Gujarat",
+            "containedInPlace": {
+              "@type": "Country",
+              "name": "India"
+            }
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Ahmedabad",
+          "containedInPlace": {
+            "@type": "AdministrativeArea",
+            "name": "Gujarat",
+            "containedInPlace": {
+              "@type": "Country",
+              "name": "India"
+            }
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Surat",
+          "containedInPlace": {
+            "@type": "AdministrativeArea",
+            "name": "Gujarat",
+            "containedInPlace": {
+              "@type": "Country",
+              "name": "India"
+            }
+          }
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Gujarat"
+        },
+        {
+          "@type": "Country",
+          "name": "India"
+        }
+      ]
+    },
     "brand-visibility.html": {
       "nav": "brand-visibility",
       "priority": "0.9",
@@ -135,5 +186,111 @@
     "https://github.com/seosdm",
     "https://www.upwork.com/freelancers/growthbyaiseo",
     "https://www.shrushti.com/author/semil-shah/"
+  ],
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "London",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Ontario",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Canada"
+        }
+      }
+    },
+    {
+      "@type": "City",
+      "name": "Toronto",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Ontario",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Canada"
+        }
+      }
+    },
+    {
+      "@type": "City",
+      "name": "Kitchener",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Ontario",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Canada"
+        }
+      }
+    },
+    {
+      "@type": "City",
+      "name": "Waterloo",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Ontario",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Canada"
+        }
+      }
+    },
+    {
+      "@type": "City",
+      "name": "Hamilton",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Ontario",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Canada"
+        }
+      }
+    },
+    {
+      "@type": "City",
+      "name": "Windsor",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Ontario",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Canada"
+        }
+      }
+    },
+    {
+      "@type": "City",
+      "name": "Vadodara",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Gujarat",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "India"
+        }
+      }
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Ontario"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Gujarat"
+    },
+    {
+      "@type": "Country",
+      "name": "Canada"
+    },
+    {
+      "@type": "Country",
+      "name": "United States"
+    },
+    {
+      "@type": "Country",
+      "name": "India"
+    }
   ]
 }

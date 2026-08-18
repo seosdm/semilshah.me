@@ -102,6 +102,35 @@ function syncSameAs(html) {
   });
 }
 
+/**
+ * Rewrite every "areaServed" array from cfg.areaServed.
+ *
+ * Same drift as sameAs: it was hand-written across 17 pages in three different
+ * variants — some listing Canada/US/India, some only Canada/US. It is also now
+ * structured rather than a list of country strings, so the service area names
+ * the actual cities and regions (Ontario, Gujarat) instead of whole countries.
+ *
+ * Safe to re-run: the generated value contains objects but no nested arrays, so
+ * the non-greedy [...] match still ends on the right bracket.
+ */
+function syncAreaServed(html, rel) {
+  // A region page describes a narrower service area than the site as a whole —
+  // the Vadodara page should not claim Kitchener. site.config.json pages may
+  // override with their own areaServed.
+  const area = cfg.pages[rel]?.areaServed ?? cfg.areaServed;
+  if (!area?.length) return html;
+  return html.replace(/("areaServed"\s*:\s*)\[[\s\S]*?\]/g, (match, key, offset) => {
+    const lineStart = html.lastIndexOf('\n', offset) + 1;
+    const indent = html.slice(lineStart, offset).match(/^\s*/)[0];
+    const body = JSON.stringify(area, null, 2)
+      .split('\n')
+      .map(line => indent + line)
+      .join('\n')
+      .trimStart();
+    return key + body;
+  });
+}
+
 function ensureNoindex(html, rel) {
   if (!cfg.noindex.includes(rel)) return html;
   if (/name="robots"/i.test(html)) return html;
@@ -373,6 +402,7 @@ function writeSitemap(pages) {
     html = ensureCanonical(html, rel);
     html = ensureNoindex(html, rel);
     html = syncSameAs(html);
+    html = syncAreaServed(html, rel);
 
     if (html !== before) { fs.writeFileSync(abs, html); changed++; console.log(`  ~ ${rel}`); }
     else console.log(`    ${rel} (no change)`);
