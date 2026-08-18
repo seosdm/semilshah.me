@@ -292,5 +292,21 @@
       "@type": "Country",
       "name": "India"
     }
-  ]
+  ],
+  "locations": {
+    "london": {
+      "streetAddress": "42-777 Apricot Dr",
+      "addressLocality": "London",
+      "addressRegion": "ON",
+      "postalCode": "N6K 5B3",
+      "addressCountry": "CA"
+    },
+    "vadodara": {
+      "streetAddress": "C54, Bhavani Society, Karelibag",
+      "addressLocality": "Vadodara",
+      "addressRegion": "GJ",
+      "postalCode": "390018",
+      "addressCountry": "IN"
+    }
+  }
 }
