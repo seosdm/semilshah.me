@@ -19,3 +19,26 @@ RewriteEngine On
 # NE stops mod_rewrite re-escaping characters that are already encoded.
 RewriteCond %{HTTP_HOST} ^www\.semilshah\.me$ [NC]
 RewriteRule ^(.*)$ https://semilshah.me/$1 [R=301,L,NE]
+
+# --- build tooling is not part of the site --------------------------------
+#
+# _partials/, build.js, check.js and the config files exist to BUILD the pages;
+# nothing on the live site reads them. They were being served as 200s.
+#
+# _partials/*.html is the one that actually matters: raw fragments carrying
+# {{BASE}} placeholders, no <title> and no canonical — thin broken pages if a
+# crawler ever finds them.
+#
+# Blocking here rather than relying on remembering not to upload them, so the
+# simple "upload the whole folder" workflow stays safe.
+
+RedirectMatch 404 ^/_partials(/.*)?$
+<FilesMatch "^(build|check)\.js$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^(site\.config|skills)\.json$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^README\.md$">
+  Require all denied
+</FilesMatch>
