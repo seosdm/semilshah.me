@@ -80,7 +80,6 @@
           <a href="fractional-seo-manager.html" data-nav="fractional-seo-manager" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">Fractional Head of SEO</a>
           <a href="growth-manager.html" data-nav="growth-manager" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">Growth &amp; GTM Manager</a>
           <a href="seo-consultant-canada.html" data-nav="seo-consultant-canada" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">SEO Consultant Canada</a>
-          <a href="ai-marketing-consultant-vadodara.html" data-nav="ai-marketing-consultant-vadodara" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors border-b border-[#e8e8e8]">AI Marketing Vadodara</a>
           <a href="brand-visibility.html" data-nav="brand-visibility" class="block px-6 py-3 font-label text-[10px] uppercase tracking-widest text-[#2f2f2f] hover:bg-[#f1f1f1] hover:text-[#9e3c00] transition-colors">AI Search Visibility</a>
         </div>
       </div>
@@ -123,11 +122,12 @@
             <p class="text-white text-xl font-light leading-relaxed">London, Ontario<br/>Canada</p>
           </div>
           <div class="space-y-2">
-            <p class="font-label text-[10px] uppercase tracking-widest text-zinc-500">Electronic Mail</p>
-            <!-- Assembled at runtime by the script at the end of <body>. No mailto:
-                 string and no address exists in the served HTML for a harvester
-                 to lift. Falls back to a working link if JS is unavailable. -->
-            <a data-mail="aGlAc2VtaWxzaGFoLm1l" data-mail-keep-label href="#contact-form" class="text-white text-xl font-light border-b border-zinc-700 pb-2 inline-block hover:border-[#9e3c00] transition-colors">Email me directly</a>
+            <p class="font-label text-[10px] uppercase tracking-widest text-zinc-500">Get In Touch</p>
+            <!-- Deliberately the form, not a mailto:. The address appears nowhere
+                 in this page — not as text, not in an href, and not after JS runs
+                 — so there is nothing for a harvester to lift. It stays in the
+                 JSON-LD above for entity resolution only. -->
+            <a href="#contact-form" class="text-white text-xl font-light border-b border-zinc-700 pb-2 inline-block hover:border-[#9e3c00] transition-colors">Use the form below</a>
           </div>
           <div class="flex gap-6 pt-4">
             <a href="https://linkedin.com/in/semshah143" target="_blank" rel="noopener" class="text-white hover:text-[#9e3c00] transition-colors font-label text-xs uppercase tracking-widest font-bold">LinkedIn</a>
@@ -282,7 +282,7 @@
       <h2 class="text-5xl md:text-7xl font-black tracking-tighter uppercase font-headline text-white max-w-4xl">Ready to build your legacy?</h2>
     </div>
     <p class="font-body text-zinc-400 text-lg md:text-xl max-w-2xl leading-relaxed">Currently accepting new clients across Canada and the United States. Response within 24 hours.</p>
-    <a data-mail="aGlAc2VtaWxzaGFoLm1l" data-mail-keep-label href="#contact-form" class="bg-[#9e3c00] text-white px-12 py-6 font-headline font-black uppercase tracking-widest text-sm flex items-center gap-4 hover:bg-white hover:text-black transition-all group">
+    <a href="#contact-form" class="bg-[#9e3c00] text-white px-12 py-6 font-headline font-black uppercase tracking-widest text-sm flex items-center gap-4 hover:bg-white hover:text-black transition-all group">
       Start the Conversation
       <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
     </a>
@@ -322,32 +322,6 @@
 </footer>
 <!-- /PARTIAL:FOOTER -->
 
-<script>
-  /* Contact-detail obfuscation.
-   *
-   * The served HTML contains no mailto: and no address string — only
-   * base64 payloads that are decoded and wired up here. That defeats the naive
-   * harvesters that scrape raw HTML for "mailto:" patterns, which is the bulk of
-   * address-scraping traffic.
-   *
-   * It is obfuscation, not encryption: anything a browser can display, a
-   * determined scraper running a headless browser can also read. The value is in
-   * raising the cost above what commodity harvesters will pay.
-   *
-   * Without JS the links fall back to the on-page form rather than dead ends.
-   */
-  (function () {
-    var d = function (v) { try { return atob(v); } catch (e) { return ''; } };
-
-    document.querySelectorAll('[data-mail]').forEach(function (el) {
-      var addr = d(el.getAttribute('data-mail'));
-      if (!addr) return;
-      el.setAttribute('href', 'mail' + 'to:' + addr);
-      el.removeAttribute('data-mail');
-      if (!el.hasAttribute('data-mail-keep-label')) el.textContent = addr;
-    });
-  })();
-</script>
 
 <script>
   /* Contact form -> Web3Forms, submitted over fetch so the visitor stays on the
