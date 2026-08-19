@@ -197,20 +197,28 @@
           </div>
         </div>
       </div>
-      <form id="contact-form" class="space-y-12" action="mailto:hi@semilshah.me" method="post">
+      <form id="contact-form" class="space-y-12" action="https://api.web3forms.com/submit" method="POST">
+          <!-- Web3Forms. The access key is not a secret: it ships in this HTML by
+               design and only authorises posting to one inbox. -->
+          <input type="hidden" name="access_key" value="e52d3b47-a76b-4d54-b387-fe14ec02d5c5"/>
+          <input type="hidden" name="subject" value="New inquiry from semilshah.me"/>
+          <input type="hidden" name="from_name" value="semilshah.me contact form"/>
+          <!-- Honeypot: hidden from people, filled in by bots. Web3Forms drops any
+               submission where this is set — which spares real visitors a captcha. -->
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off"/>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div class="custom-underline">
-            <label class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Full Name</label>
-            <input class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg font-body" placeholder="e.g. Jane Smith" type="text" name="name"/>
+            <label for="f-name" class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Full Name</label>
+            <input class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg font-body" placeholder="e.g. Jane Smith" type="text" name="name" id="f-name" required/>
           </div>
           <div class="custom-underline">
-            <label class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Email Address</label>
-            <input class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg font-body" placeholder="name@company.com" type="email" name="email"/>
+            <label for="f-email" class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Email Address</label>
+            <input class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg font-body" placeholder="name@company.com" type="email" name="email" id="f-email" required/>
           </div>
         </div>
         <div class="custom-underline">
-          <label class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Company / Organization</label>
-          <input class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg font-body" placeholder="Your company name" type="text" name="company"/>
+          <label for="f-company" class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Company / Organization</label>
+          <input class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg font-body" placeholder="Your company name" type="text" name="company" id="f-company"/>
         </div>
         <div class="custom-underline">
           <label class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Service Interest</label>
@@ -228,14 +236,15 @@
           </select>
         </div>
         <div class="custom-underline">
-          <label class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Message</label>
-          <textarea class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg resize-none font-body" placeholder="Tell me about your project and goals..." rows="4" name="message"></textarea>
+          <label for="f-message" class="block font-label text-[10px] uppercase tracking-[0.15em] text-[#777777] mb-2">Message</label>
+          <textarea class="w-full bg-transparent border-none p-0 pb-4 text-[#2f2f2f] placeholder-zinc-400 focus:ring-0 text-lg resize-none font-body" placeholder="Tell me about your project and goals..." rows="4" name="message" id="f-message" required></textarea>
         </div>
         <div class="pt-8">
           <button class="bg-[#9e3c00] text-[#fff0ea] px-10 py-5 font-headline font-black uppercase tracking-widest text-xs flex items-center gap-4 hover:opacity-90 active:scale-[0.98] transition-all group" type="submit">
             Send Inquiry
             <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </button>
+            <p id="form-status" role="status" aria-live="polite" class="hidden mt-6 font-body text-base"></p>
         </div>
       </form>
     </div>
@@ -349,6 +358,57 @@
       el.textContent = d(el.getAttribute('data-tel-display')) || num;
       el.removeAttribute('data-tel');
       el.removeAttribute('data-tel-display');
+    });
+  })();
+</script>
+
+<script>
+  /* Contact form -> Web3Forms, submitted over fetch so the visitor stays on the
+   * page. Without JS the form still posts normally to the same endpoint and
+   * Web3Forms renders its own confirmation, so nothing is lost — this is
+   * progressive enhancement, not a dependency.
+   */
+  (function () {
+    var form = document.getElementById('contact-form');
+    var status = document.getElementById('form-status');
+    if (!form || !status) return;
+
+    var button = form.querySelector('button[type="submit"]');
+    var label = button ? button.innerHTML : '';
+
+    function show(message, ok) {
+      status.textContent = message;
+      status.classList.remove('hidden');
+      status.style.color = ok ? '#2f2f2f' : '#9e3c00';
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      var data = Object.fromEntries(new FormData(form).entries());
+      if (button) { button.disabled = true; button.innerHTML = 'Sending…'; }
+      status.classList.add('hidden');
+
+      fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (result) {
+          if (result && result.success) {
+            form.reset();
+            show('Thank you — your inquiry is in. Expect a reply within one business day.', true);
+          } else {
+            show((result && result.message) || 'Something went wrong. Please email me directly instead.', false);
+          }
+        })
+        .catch(function () {
+          show('Network error — nothing was sent. Please try again, or email me directly.', false);
+        })
+        .then(function () {
+          if (button) { button.disabled = false; button.innerHTML = label; }
+        });
     });
   })();
 </script>
