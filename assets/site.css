@@ -61,10 +61,36 @@ iframe {
   height: auto;
 }
 
-/* Long unbroken strings — URLs, slugs — must not force a scrollbar. */
+/* Long unbroken strings — URLs, slugs — must not force a scrollbar. Headings
+   are excluded: breaking a display word mid-letter looks worse than the
+   overflow it prevents, and the rule below keeps them small enough to fit. */
 @media (max-width: 767px) {
-  p, li, h1, h2, h3, h4, blockquote, address {
+  p, li, blockquote, address {
     overflow-wrap: break-word;
+  }
+}
+
+/* --- display type must fit the screen ------------------------------------
+ *
+ * The hero sizes are set for a 1440px canvas: text-7xl is 72px, and at that
+ * size the single word "INSIGHTS" measures 320px inside a 316px column. Four
+ * pixels of overflow was enough to drop a lone "S" onto its own line.
+ *
+ * Scaled fluidly instead of by fixed breakpoint, so it holds on a 360px phone
+ * as well as a 412px one. Line height tightens to match.
+ */
+@media (max-width: 767px) {
+  .text-7xl,
+  .text-8xl,
+  .text-9xl {
+    font-size: clamp(2.5rem, 14vw, 4.5rem) !important;
+    line-height: 0.95 !important;
+  }
+
+  .text-5xl,
+  .text-6xl {
+    font-size: clamp(2rem, 10vw, 3.25rem) !important;
+    line-height: 1 !important;
   }
 }
 
