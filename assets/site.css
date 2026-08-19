@@ -71,13 +71,16 @@ iframe {
 /* --- 3. touch targets ---------------------------------------------------- */
 
 @media (max-width: 767px) {
-  /* WCAG 2.5.8 asks for 24px minimum; 44px is the comfortable target. Applied
-     to navigation and footer links, which were small text set on tight lines. */
+  /* WCAG 2.5.8 asks for 24px minimum; 44px is the comfortable target.
+     Centred with flex rather than `line-height: 44px`, because Tailwind's own
+     `.text-sm { line-height: 1.25rem }` outranks a `nav a` selector — the box
+     grew to 44px while the text stayed pinned to its top, which is what made
+     Contact sit higher than the hamburger. */
   nav a,
   footer a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     min-height: 44px;
-    line-height: 44px;
   }
 }
 
@@ -91,9 +94,24 @@ iframe {
 }
 
 @media (max-width: 767px) {
+  /* Bar layout: logo hard left, then Contact and the toggle together on the
+     right. The bar is `justify-between`, so with three visible children the
+     middle one floated to the centre and the row read as misaligned. Giving the
+     logo `margin-right:auto` collapses that gap and groups the other two. */
+  nav > div > a:first-child {
+    margin-right: auto;
+  }
+
+  nav > div > a[data-nav="contact"] {
+    order: 8;
+  }
+
+  nav > div {
+    gap: 0.75rem;
+  }
+
   .nav-toggle {
-    /* Sits last in the bar so it lands at the right edge; the markup order is
-       logo, toggle, links, Contact, which would otherwise centre it. */
+    /* Last in the visual order, hard against the right edge. */
     order: 9;
     display: inline-flex;
     align-items: center;

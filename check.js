@@ -54,6 +54,22 @@ for (const rel of pages) {
   const isSkill = cfg.skillDir && rel.startsWith(`${cfg.skillDir}/`);
   if (!cfg.pages[rel] && !isSkill) err(rel, 'not listed in site.config.json — it will get no active nav state and default sitemap priority');
 
+  /* --- responsive plumbing ---------------------------------------------
+   * Mobile broke once because pages were desktop-only by construction: no
+   * viewport meta is fatal, no site.css means grids overflow the screen, and
+   * no nav toggle means a phone has no navigation at all. These are the
+   * structural preconditions, so a page cannot ship without them.
+   */
+  if (!/<meta\s+name="viewport"[^>]*width=device-width/i.test(html)) {
+    err(rel, 'no responsive viewport meta — the page will render at desktop width on a phone');
+  }
+  if (!/href="[^"]*assets\/site\.css"/i.test(html)) {
+    err(rel, 'does not link assets/site.css — grids will overflow the screen on mobile');
+  }
+  if (!/class="nav-toggle"/.test(html)) {
+    err(rel, 'no mobile menu toggle — below 768px the nav is hidden and this page has no navigation');
+  }
+
   /* --- partials -------------------------------------------------------- */
   if (!/<!--\s*PARTIAL:NAV\s*-->/.test(html)) err(rel, 'nav is not managed by build.js (missing PARTIAL:NAV markers)');
   if (!/<!--\s*PARTIAL:FOOTER\s*-->/.test(html)) err(rel, 'footer is not managed by build.js (missing PARTIAL:FOOTER markers)');
