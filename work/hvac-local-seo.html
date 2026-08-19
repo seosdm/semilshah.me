@@ -159,6 +159,7 @@
   "url": "https://semilshah.me/work/hvac-local-seo.html"
 }
 </script>
+  <link rel="stylesheet" href="../assets/site.css"/>
 </head>
 <body class="font-body">
 
@@ -167,7 +168,10 @@
 <nav class="fixed top-0 w-full z-50 bg-[#f6f6f6]">
   <div class="flex justify-between items-center w-full px-8 py-6 max-w-none">
     <a href="../index.html" class="text-2xl font-black tracking-tighter text-black font-headline uppercase">SEMIL SHAH</a>
-    <div class="hidden md:flex gap-10 items-center">
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+      <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+    </button>
+    <div id="nav-panel" class="nav-panel hidden md:flex gap-10 items-center">
       <a href="../about.html" data-nav="about" class="font-headline font-black uppercase tracking-tighter text-sm text-black opacity-70 hover:text-[#9e3c00] transition-colors duration-150">About</a>
       <div class="relative group">
         <a href="../services.html" data-nav="services" class="font-headline font-black uppercase tracking-tighter text-sm text-black opacity-70 hover:text-[#9e3c00] transition-colors flex items-center gap-1">Services <span class="material-symbols-outlined" style="font-size:14px;line-height:1;vertical-align:middle;">expand_more</span></a>
@@ -196,6 +200,38 @@
     <a href="../contact.html" data-nav="contact" class="font-headline font-black uppercase tracking-tighter text-sm text-[#9e3c00] hover:opacity-80 transition-opacity">Contact</a>
   </div>
   <div class="bg-[#f1f1f1] h-[1px] w-full"></div>
+  <script>
+    /* Mobile menu. Ships inside the nav partial so every static page and the
+       WordPress theme get it from one source. The panel is the same markup the
+       desktop row uses — site.css restyles it below 768px rather than
+       duplicating the links. */
+    (function () {
+      var nav = document.currentScript.closest('nav');
+      var btn = nav.querySelector('.nav-toggle');
+      var panel = nav.querySelector('.nav-panel');
+      if (!btn || !panel) return;
+
+      function set(open) {
+        panel.setAttribute('data-open', open ? 'true' : 'false');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        btn.querySelector('.material-symbols-outlined').textContent = open ? 'close' : 'menu';
+      }
+
+      btn.addEventListener('click', function () {
+        set(panel.getAttribute('data-open') !== 'true');
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') set(false);
+      });
+
+      // Following a link should not leave the menu open behind the new page.
+      panel.addEventListener('click', function (e) {
+        if (e.target.closest('a')) set(false);
+      });
+    })();
+  </script>
 </nav>
 <!-- /PARTIAL:NAV -->
 

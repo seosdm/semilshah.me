@@ -131,6 +131,22 @@ function syncAreaServed(html, rel) {
   });
 }
 
+/**
+ * Guarantee every page links assets/site.css.
+ *
+ * The responsive fixes live in one stylesheet rather than in each page's inline
+ * <style>, so a mobile bug is fixed once instead of thirty times. Inserted
+ * before </head> at the right relative depth for the page.
+ */
+function ensureStylesheet(html, rel) {
+  const href = `${baseFor(rel)}assets/site.css`;
+  const tag = `<link rel="stylesheet" href="${href}"/>`;
+  if (/<link\s+rel="stylesheet"\s+href="[^"]*assets\/site\.css"\s*\/?>/i.test(html)) {
+    return html.replace(/<link\s+rel="stylesheet"\s+href="[^"]*assets\/site\.css"\s*\/?>/i, tag);
+  }
+  return html.replace(/<\/head>/i, `  ${tag}\n</head>`);
+}
+
 function ensureNoindex(html, rel) {
   if (!cfg.noindex.includes(rel)) return html;
   if (/name="robots"/i.test(html)) return html;
@@ -400,6 +416,7 @@ function writeSitemap(pages) {
     html = injectBlock(html, 'nav', 'NAV', nav);
     html = injectBlock(html, 'footer', 'FOOTER', render(FOOTER, base));
     html = ensureCanonical(html, rel);
+    html = ensureStylesheet(html, rel);
     html = ensureNoindex(html, rel);
     html = syncSameAs(html);
     html = syncAreaServed(html, rel);

@@ -1,0 +1,159 @@
+/* site.css — cross-device fixes that Tailwind utilities in the markup cannot
+ * express, linked into every page by build.js.
+ *
+ * WHY THIS EXISTS
+ * The layouts were built desktop-first with `grid-cols-12 gap-12`. On a phone
+ * that is fatal arithmetic: twelve columns with eleven 48px gaps needs 528px of
+ * gap alone, inside a ~316px container. The tracks collapsed to 0px and the
+ * gaps pushed the page 188px wider than the screen, so every page scrolled
+ * sideways on mobile. Measured on a 412px viewport before the fix.
+ *
+ * The rules below are scoped to small screens so the desktop layout is
+ * untouched.
+ */
+
+/* --- 1. stacked layout on phones ---------------------------------------- */
+
+@media (max-width: 767px) {
+  /* Any multi-column grid becomes a single column. Children are forced to span
+     the full row, because `col-span-*` in a one-column grid would otherwise
+     create implicit columns and reintroduce the overflow. */
+  [class*="grid-cols-"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  [class*="grid-cols-"] > * {
+    grid-column: 1 / -1 !important;
+    min-width: 0;
+  }
+
+  /* Gaps sized for a 1440px canvas are enormous on a phone. */
+  [class*="gap-12"],
+  [class*="gap-16"],
+  [class*="gap-10"] {
+    gap: 2rem !important;
+  }
+
+  /* Flex rows must be allowed to wrap and to shrink. */
+  [class*="flex"] > * {
+    min-width: 0;
+  }
+
+  /* The footer's social row is `flex gap-5` with no flex-wrap: five links on
+     one unbreakable line, 393px inside a 348px content box. That single row was
+     the last 13px of horizontal overflow on every page — a non-wrapping flex
+     container cannot shrink below its min-content, so min-width:0 above does
+     not help it. Adding a fifth link (Upwork) is what tipped it over. */
+  nav [class*="flex"],
+  footer [class*="flex"] {
+    flex-wrap: wrap;
+  }
+}
+
+/* --- 2. nothing may exceed the viewport --------------------------------- */
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Long unbroken strings — URLs, slugs — must not force a scrollbar. */
+@media (max-width: 767px) {
+  p, li, h1, h2, h3, h4, blockquote, address {
+    overflow-wrap: break-word;
+  }
+}
+
+/* --- 3. touch targets ---------------------------------------------------- */
+
+@media (max-width: 767px) {
+  /* WCAG 2.5.8 asks for 24px minimum; 44px is the comfortable target. Applied
+     to navigation and footer links, which were small text set on tight lines. */
+  nav a,
+  footer a {
+    display: inline-block;
+    min-height: 44px;
+    line-height: 44px;
+  }
+}
+
+/* --- 4. mobile navigation ----------------------------------------------- */
+/* The desktop nav is `hidden md:flex`, which left phones with no menu at all —
+   only the logo and Contact were reachable. The markup for the toggle lives in
+   _partials/header.html; this is its presentation. */
+
+.nav-toggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .nav-toggle {
+    /* Sits last in the bar so it lands at the right edge; the markup order is
+       logo, toggle, links, Contact, which would otherwise centre it. */
+    order: 9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: #2f2f2f;
+  }
+
+  .nav-panel {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #f6f6f6;
+    border-top: 1px solid #e8e8e8;
+    padding: 0.5rem 2rem 2rem;
+    max-height: calc(100vh - 100%);
+    overflow-y: auto;
+  }
+
+  .nav-panel[data-open="true"] {
+    display: block;
+  }
+
+  /* Inside the panel every link is a full-width row, including the ones that
+     are hover-revealed dropdowns on desktop. */
+  .nav-panel a {
+    display: block;
+    padding: 0.25rem 0;
+    line-height: 1.6;
+    min-height: 44px;
+  }
+
+  /* Neutralise the desktop dropdown positioning so the sub-links simply stack. */
+  .nav-panel .group > div {
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: auto !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    background: transparent !important;
+    padding-left: 1rem;
+  }
+
+  .nav-panel .material-symbols-outlined {
+    display: none;
+  }
+}
+
+/* Desktop keeps its own nav; the panel must never appear there. */
+@media (min-width: 768px) {
+  .nav-panel {
+    display: contents;
+  }
+}
