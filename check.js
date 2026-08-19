@@ -63,7 +63,8 @@ for (const rel of pages) {
   if (!/<meta\s+name="viewport"[^>]*width=device-width/i.test(html)) {
     err(rel, 'no responsive viewport meta — the page will render at desktop width on a phone');
   }
-  if (!/href="[^"]*assets\/site\.css"/i.test(html)) {
+  // The href carries a ?v=<hash> cache-buster, so match up to the quote.
+  if (!/href="[^"]*assets\/site\.css(\?[^"]*)?"/i.test(html)) {
     err(rel, 'does not link assets/site.css — grids will overflow the screen on mobile');
   }
   if (!/class="nav-toggle"/.test(html)) {

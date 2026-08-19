@@ -29,6 +29,15 @@ const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'site.config.json'), 'utf
 const HEADER = fs.readFileSync(path.join(ROOT, '_partials/header.html'), 'utf8').trim();
 const FOOTER = fs.readFileSync(path.join(ROOT, '_partials/footer.html'), 'utf8').trim();
 
+// Short content hash of assets/site.css, used to bust caches on the stylesheet
+// link. Recomputed every build, so the URL only changes when the file does.
+const SITE_CSS_VERSION = (() => {
+  const f = path.join(ROOT, 'assets/site.css');
+  if (!fs.existsSync(f)) return '0';
+  return require('crypto').createHash('sha1')
+    .update(fs.readFileSync(f)).digest('hex').slice(0, 8);
+})();
+
 const YEAR = new Date().getFullYear();
 let changed = 0;
 
@@ -139,11 +148,15 @@ function syncAreaServed(html, rel) {
  * before </head> at the right relative depth for the page.
  */
 function ensureStylesheet(html, rel) {
-  const href = `${baseFor(rel)}assets/site.css`;
+  // Fingerprint the file so the URL changes whenever its contents do. Without
+  // this the link was version-less: browsers and the CDN cached it forever, and
+  // a corrected stylesheet uploaded to the server had no effect on a phone that
+  // had already seen the old one. That is exactly how a fixed bug keeps looking
+  // broken.
+  const href = `${baseFor(rel)}assets/site.css?v=${SITE_CSS_VERSION}`;
   const tag = `<link rel="stylesheet" href="${href}"/>`;
-  if (/<link\s+rel="stylesheet"\s+href="[^"]*assets\/site\.css"\s*\/?>/i.test(html)) {
-    return html.replace(/<link\s+rel="stylesheet"\s+href="[^"]*assets\/site\.css"\s*\/?>/i, tag);
-  }
+  const existing = /<link\s+rel="stylesheet"\s+href="[^"]*assets\/site\.css(\?[^"]*)?"\s*\/?>/i;
+  if (existing.test(html)) return html.replace(existing, tag);
   return html.replace(/<\/head>/i, `  ${tag}\n</head>`);
 }
 
