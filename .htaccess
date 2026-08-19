@@ -32,13 +32,11 @@ RewriteRule ^(.*)$ https://semilshah.me/$1 [R=301,L,NE]
 # Blocking here rather than relying on remembering not to upload them, so the
 # simple "upload the whole folder" workflow stays safe.
 
+# RedirectMatch throughout, not <FilesMatch>+Require. Tested on this host:
+# RedirectMatch works, while "Require all denied" silently did nothing —
+# it needs AllowOverride AuthConfig, which this plan does not grant. The
+# files kept returning 200 until this was rewritten.
 RedirectMatch 404 ^/_partials(/.*)?$
-<FilesMatch "^(build|check)\.js$">
-  Require all denied
-</FilesMatch>
-<FilesMatch "^(site\.config|skills)\.json$">
-  Require all denied
-</FilesMatch>
-<FilesMatch "^README\.md$">
-  Require all denied
-</FilesMatch>
+RedirectMatch 404 ^/(build|check)\.js$
+RedirectMatch 404 ^/(site\.config|skills)\.json$
+RedirectMatch 404 ^/README\.md$
