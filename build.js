@@ -20,6 +20,7 @@
  */
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
@@ -361,13 +362,28 @@ function packageTheme(dir) {
 
   // Sits alongside the theme it was built from, in themes/.
   const out = path.resolve(dir, '..', `${slug}.zip`);
-  fs.rmSync(out, { force: true });
+
+  // Build the archive in the system temp directory, then copy it over the old
+  // one. Do not simply point `zip` at `out`: when the target already exists,
+  // `zip` writes a scratch file beside it and REPLACES the original, and that
+  // replace is an unlink. On a sandboxed or remote-mounted filesystem — a
+  // Cowork device mount, a container bind mount — the unlink is refused, and
+  // zip fails leaving a 0-byte target and a scratch file behind. Copying is a
+  // plain truncate-and-write, which such mounts do allow.
+  //
+  // Building somewhere else first also gets the archive right: `zip` UPDATES an
+  // existing archive rather than replacing its contents, so a file removed from
+  // the theme would otherwise live on inside the zip forever.
+  const tmp = path.join(os.tmpdir(), `${slug}.${process.pid}.zip`);
 
   try {
-    execFileSync('zip', ['-rqX', out, slug, '-x', '*.DS_Store'], { cwd: parent });
+    execFileSync('zip', ['-rqX', tmp, slug, '-x', '*.DS_Store'], { cwd: parent });
+    fs.copyFileSync(tmp, out);
   } catch (err) {
-    console.warn(`  ! could not zip the theme (${err.message}) — zip it by hand`);
+    console.warn(`  ! could not package the theme (${err.message}) — zip it by hand`);
     return;
+  } finally {
+    try { fs.rmSync(tmp, { force: true }); } catch { /* best effort */ }
   }
 
   const kb = (fs.statSync(out).size / 1024).toFixed(1);
